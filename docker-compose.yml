@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   nginx:
     image: nginx:1.21.1
@@ -14,7 +12,9 @@ services:
   php:
     build: ./docker/php
     volumes:
-      - ./src:/var/www/
+      - ./src:/var/www/html
+      - ./src/storage:/var/www/html/storage
+      - ./src/bootstrap/cache:/var/www/html/bootstrap/cache
 
   mysql:
     image: mysql:8.0.26
@@ -30,7 +30,8 @@ services:
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    platform: linux/amd64
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=mysql
