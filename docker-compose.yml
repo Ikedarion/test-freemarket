@@ -12,9 +12,9 @@ services:
   php:
     build: ./docker/php
     volumes:
-      - ./src:/var/www/html
-      - ./src/storage:/var/www/html/storage
-      - ./src/bootstrap/cache:/var/www/html/bootstrap/cache
+      - ./src:/var/www/
+      - ./src/storage:/var/www/storage
+      - ./src/bootstrap/cache:/var/www/bootstrap/cache
 
   mysql:
     image: mysql:8.0.26

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class UserFactory extends Factory
 {
@@ -14,12 +14,24 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $imagesPath = [
+            '/Users/ikedarion/Downloads/firstview.jpg',
+            '/Users/ikedarion/Downloads/mv.jpg',
+            '/Users/ikedarion/Downloads/img/card4.jpg',
+            '/Users/ikedarion/Downloads/img/card5.jpg',
+        ];
+
+        $imagePath = $this->faker->randomElement($imagesPath);
+
+        $imageName = basename($imagePath);
+        Storage::disk('public')->put('images/' . $imageName, file_get_contents($imagePath));
+
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'password' => bcrypt('Password1'),
+            'image' => 'storage/images/' . $imageName,
         ];
     }
 
