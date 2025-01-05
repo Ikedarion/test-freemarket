@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Faker\Factory as Faker;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 
 class ProductSeeder extends Seeder
 {
@@ -28,7 +26,8 @@ class ProductSeeder extends Seeder
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
                 'status' => '販売中',
                 'condition' => '良好',
-                'image_path' => '/Users/ikedarion/Downloads/Armani+Mens+Clock.jpg',
+                'image_path' => '/dummy_images/Armani+Mens+Clock.jpg',
+                'color' => 'ゴールド'
             ],
             [
                 'name' => 'HDD',
@@ -36,7 +35,8 @@ class ProductSeeder extends Seeder
                 'description' => '高速で信頼性の高いハードディスク',
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
-                'image_path' => '/Users/ikedarion/Downloads/HDD+Hard+Disk.jpg',
+                'image_path' => '/dummy_images/HDD+Hard+Disk.jpg',
+                'color' => '黒'
             ],
             [
                 'name' => '玉ねぎ3束',
@@ -44,7 +44,8 @@ class ProductSeeder extends Seeder
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'status' => '販売中',
                 'condition' => 'やや傷や汚れあり',
-                'image_path' => '/Users/ikedarion/Downloads/iLoveIMG+d.jpg',
+                'image_path' => '/dummy_images/iLoveIMG+d.jpg',
+                'color' => 'ベージュ'
             ],
             [
                 'name' => '革靴',
@@ -52,7 +53,8 @@ class ProductSeeder extends Seeder
                 'description' => 'クラシックなデザインの革靴',
                 'status' => '販売中',
                 'condition' => '状態が悪い',
-                'image_path' => '/Users/ikedarion/Downloads/Leather+Shoes+Product+Photo.jpg',
+                'image_path' => '/dummy_images/Leather+Shoes+Product+Photo.jpg',
+                'color' => '黒'
             ],
             [
                 'name' => 'ノートPC',
@@ -60,7 +62,8 @@ class ProductSeeder extends Seeder
                 'description' => '高性能なノートパソコン',
                 'status' => '販売中',
                 'condition' => '良好',
-                'image_path' => '/Users/ikedarion/Downloads/Living+Room+Laptop.jpg',
+                'image_path' => '/dummy_images/Living+Room+Laptop.jpg',
+                'color' => '黒'
             ],
             [
                 'name' => 'マイク',
@@ -68,7 +71,8 @@ class ProductSeeder extends Seeder
                 'description' => '高音質のレコーディング用マイク',
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
-                'image_path' => '/Users/ikedarion/Downloads/Music+Mic+4632231.jpg',
+                'image_path' => '/dummy_images/Music+Mic+4632231.jpg',
+                'color' => '黒'
             ],
             [
                 'name' => 'ショルダーバッグ',
@@ -76,7 +80,8 @@ class ProductSeeder extends Seeder
                 'description' => 'おしゃれなショルダーバッグ',
                 'status' => '販売中',
                 'condition' => 'やや傷や汚れあり',
-                'image_path' => '/Users/ikedarion/Downloads/Purse+fashion+pocket.jpg',
+                'image_path' => '/dummy_images/Purse+fashion+pocket.jpg',
+                'color' => '赤'
             ],
             [
                 'name' => 'タンブラー',
@@ -84,7 +89,8 @@ class ProductSeeder extends Seeder
                 'description' => '使いやすいタンブラー',
                 'status' => '販売中',
                 'condition' => '状態が悪い',
-                'image_path' => '/Users/ikedarion/Downloads/Tumbler+souvenir.jpg',
+                'image_path' => '/dummy_images/Tumbler+souvenir.jpg',
+                'color' => '黒'
             ],
             [
                 'name' => 'コーヒーミル',
@@ -92,7 +98,8 @@ class ProductSeeder extends Seeder
                 'description' => '手動のコーヒーミル',
                 'status' => '販売中',
                 'condition' => '良好',
-                'image_path' => '/Users/ikedarion/Downloads/Waitress+with+Coffee+Grinder.jpg',
+                'image_path' => '/dummy_images/Waitress+with+Coffee+Grinder.jpg',
+                'color' => '茶色'
             ],
             [
                 'name' => 'メイクセット',
@@ -100,38 +107,38 @@ class ProductSeeder extends Seeder
                 'description' => '便利なメイクアップセット',
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
-                'image_path' => '/Users/ikedarion/Downloads/外出メイクアップセット.jpg',
+                'image_path' => '/dummy_images/外出メイクアップセット.jpg',
+                'color' => '黒'
             ],
         ];
 
         foreach ($products as $product) {
             $user = User::inRandomOrder()->first();
-            $imageName = $this->saveImage($product['image_path']);
+
+            $imagePath = $product['image_path'];
+            $imageName = basename($imagePath);
+
+            $directory = 'product_images';
+            if (!Storage::disk('public')->exists($directory)) {
+                Storage::disk('public')->makeDirectory($directory);
+            }
+
+            if (file_exists(public_path($imagePath))) {
+                Storage::disk('public')->put($directory . '/' . $imageName, file_get_contents(public_path($imagePath)));
+            }
 
             Product::create([
                 'name' => $product['name'],
                 'price' => $product['price'],
                 'brand_name' => $faker->company(),
-                'color' => $faker->colorName(),
+                'color' => $product['color'],
                 'description' => $product['description'],
                 'status' => $product['status'],
                 'condition' => $product['condition'],
-                'image' => 'storage/images/' . $imageName,
+                'image' => $directory . '/' . $imageName,
                 'user_id' => $user->id,
             ]);
         }
     }
-
-    /**
-     * 画像を保存してファイル名を返す
-     *
-     * @param string $imagePath
-     * @return string
-     */
-    private function saveImage(string $imagePath): string
-    {
-        $imageName = basename($imagePath);
-        Storage::disk('public')->put('images/' . $imageName, file_get_contents($imagePath));
-        return $imageName;
-    }
 }
+

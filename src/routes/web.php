@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RegisterUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,16 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [ProductController::class, 'index'])->name('home');
+Route::resource('products', ProductController::class)->except(['index','destroy']);
+Route::post('/products/comment', [ProductController::class, 'storeComment'])->name('store.comment');
 
-Route::resource('products', ProductController::class);
-Route::resource('products', PaymentController::class);
-Route::resource('products', UserController::class);
+Route::resource('payment', PaymentController::class);
+
+Route::get('/mypage/profile', [UserController::class, 'create'])->name('create.profile');
+Route::post('/profile/create/{id}', [UserController::class, 'store'])->name('store.profile');
+
+
+
+Route::post('/register', [RegisterUserController::class, 'store']);
+Route::post('/login', [RegisterUserController::class, 'login'])->name('login');

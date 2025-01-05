@@ -3,82 +3,67 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\support\facades\Auth;
+use App\Models\Product;
+use App\Models\Comment;
+use App\Models\Like;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('index');
+        $userId = Auth::id();
+        $page = $request->query('page','recommend');
+
+        if ($page === 'recommend') {
+            $products = Product::all();
+        } elseif ($page === 'my-list') {
+            $products = Product::whereHas( 'likedByUsers', function ($query) use ($userId) {
+                $query->where('user_id',$userId);
+            })->get();
+        }
+
+        return view('index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('products.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return view('products.detail');
+        $product = Product::with(['categories','comments'])->find($id);
+        $comment = Comment::where('product_id', $id)->count();
+        $likes = Like::where('product_id', $id)->count();
+        return view('products.detail', compact('product', 'comment','likes'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        return view('products.address');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function storeComment(Request $request)
     {
-        //
+        $userId = Auth::id();
+        Comment::create([
+            'content' => $request->input('comment'),
+            'user_id' => $userId,
+            'product_id' => $request->input('product_id'),
+        ]);
+        return redirect()->back()->with('コメントを送信しました。');
     }
+
+    
 }

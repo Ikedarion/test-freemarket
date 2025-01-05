@@ -2,83 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\ShippingAddress;
+use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\AddressRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return view('my-page');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $userId = Auth::id();
+        $shipping_address = ShippingAddress::where('id', $userId)->first();
+        $user = User::where('id',$userId)->first();
+
+        return view('profile',compact('user','shipping_address'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(ProfileRequest $profileRequest,
+                            AddressRequest $addressRequest, $id) {
+        $user = User::find($id);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        if ($profileRequest->hasFile('image')) {
+            $imagePath = $profileRequest->file('image')->store('profile_images', 'public');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+            $user->profile_image = $imagePath;
+            $user->save();
+        } else {
+            $imagePath = null;
+            $user->profile_image = $imagePath;
+            $user->save();
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $shipping_address = $addressRequest->only('postal_code', 'address', 'building_name');
+        $shipping_address['user_id'] = $id;
+        ShippingAddress::create($shipping_address);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('home')->with('success', 'プロフィールが作成されました');
     }
 }

@@ -14,24 +14,12 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $imagesPath = [
-            '/Users/ikedarion/Downloads/firstview.jpg',
-            '/Users/ikedarion/Downloads/mv.jpg',
-            '/Users/ikedarion/Downloads/img/card4.jpg',
-            '/Users/ikedarion/Downloads/img/card5.jpg',
-        ];
-
-        $imagePath = $this->faker->randomElement($imagesPath);
-
-        $imageName = basename($imagePath);
-        Storage::disk('public')->put('images/' . $imageName, file_get_contents($imagePath));
-
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => bcrypt('Password1'),
-            'image' => 'storage/images/' . $imageName,
+            'password' => bcrypt('password'),
+            'profile_image' => null,
         ];
     }
 

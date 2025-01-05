@@ -1,0 +1,153 @@
+html,
+body {
+    max-width: 1560px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    height: 68px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3.2% 0 2%;
+    align-items: center;
+    background-color: black;
+    gap: 5%;
+}
+
+.header-item {
+    width: 95%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10%;
+    align-items: center;
+    position: relative;
+}
+
+.home__link {
+    position: absolute;
+    top: 3px;
+    left: 20px;
+    z-index: 10;
+    width: 30%;
+    height: 25px;
+    background-color: transparent;
+}
+
+.header-logo {
+    width: 35%;
+    display: flex;
+    justify-content: flex-start;
+    max-height: 33px;
+}
+
+.header-search__input {
+    width: 65%;
+    max-width: 450px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 15px;
+    font-size: max(10px, min(calc(1.3vw), 15px));
+}
+
+nav {
+    width: 350px;
+}
+
+nav ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 3%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin: 7px auto;
+}
+
+.nav-list-logout {
+    color: white;
+    background-color: #000000;
+    border: none;
+    font-size: max(10px, min(calc(1.3vw), 15px));
+}
+
+.nav-list,
+.nav-list-btn {
+    white-space: nowrap;
+    color: white;
+    text-decoration: none;
+    font-size: max(10px, min(calc(1.3vw), 16px));
+}
+
+.nav-list-btn {
+    background-color: white;
+    color: black;
+    padding: 20% 35%;
+    border-radius: 3px;
+}
+
+.main__content {
+    padding: 20px 0;
+    height: 100%;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+@media(max-width: 1100px) {
+    .header-search__input {
+        height: 24px;
+    }
+
+    nav {
+        width: 300px;
+    }
+}
+
+@media(max-width: 850px) {
+    .header {
+        padding: 0 2%;
+    }
+
+    .header-item {
+        width: 70%;
+        gap: 9%;
+    }
+
+    .header-search__input {
+        height: 20px;
+    }
+
+    nav {
+        width: 30%;
+    }
+
+    nav ul {
+        gap: 0;
+    }
+}
+
+@media(max-width: 600px) {
+    .header-item {
+        width: 55%;
+    }
+
+    .header-search__input {
+        height: 18px;
+    }
+
+    nav {
+        width: 45%;
+    }
+}
+
+@media(min-width: 768px) and (max-width: 850px) {
+    .nav-list,
+    .nav-list-logout,
+    .nav-list-btn {
+        color: rgb(255, 127, 127);
+    }
+}
