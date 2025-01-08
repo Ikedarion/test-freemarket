@@ -38,7 +38,7 @@ class RegisterRequest extends FormRequest
         return [
             'name.required' => 'お名前を入力してください。',
             'name.string' => 'お名前を文字列で入力してください。',
-            'name.max' => 'お名前は255文字以内で入寮してください。',
+            'name.max' => 'お名前は255文字以内で入力してください。',
             'email.required' => 'メールアドレスを入力してください。',
             'email.email' => 'メールアドレスを入力してください。',
             'email.max' => 'メールアドレスは255文字以内で入力してください。',
@@ -47,7 +47,7 @@ class RegisterRequest extends FormRequest
             'password.string' => 'パスワードは文字列で入力してください。',
             'password.min' => 'パスワードは8文字以上で入力してください。',
             'password_confirmation.required' => 'パスワードを入力してください。',
-            'password_confirmation.same' => 'パスワードと一致しません',
+            'password_confirmation.same' => 'パスワードと一致しません。',
         ];
     }
 }

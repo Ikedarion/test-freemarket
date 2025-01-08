@@ -15,6 +15,12 @@ body {
     align-items: center;
     background-color: black;
     gap: 5%;
+    z-index: 500;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 .header-item {
@@ -46,7 +52,7 @@ body {
 .header-search__input {
     width: 65%;
     max-width: 450px;
-    height: 30px;
+    height: 28px;
     border: none;
     border-radius: 3px;
     padding-left: 15px;
@@ -72,7 +78,7 @@ nav ul {
     color: white;
     background-color: #000000;
     border: none;
-    font-size: max(10px, min(calc(1.3vw), 15px));
+    font-size: max(10px, min(calc(1.3vw), 13px));
 }
 
 .nav-list,
@@ -80,18 +86,18 @@ nav ul {
     white-space: nowrap;
     color: white;
     text-decoration: none;
-    font-size: max(10px, min(calc(1.3vw), 16px));
+    font-size: max(10px, min(calc(1.3vw), 13px));
 }
 
 .nav-list-btn {
     background-color: white;
     color: black;
-    padding: 20% 35%;
+    padding: 23% 38%;
     border-radius: 3px;
 }
 
 .main__content {
-    padding: 20px 0;
+    padding: 90px 0;
     height: 100%;
     width: 100vw;
     min-height: 100vh;
@@ -130,17 +136,27 @@ nav ul {
     }
 }
 
-@media(max-width: 600px) {
+@media(max-width: 750px) {
     .header-item {
-        width: 55%;
-    }
-
-    .header-search__input {
-        height: 18px;
+        width: 65%;
     }
 
     nav {
-        width: 45%;
+        width: 35%;
+    }
+}
+
+@media(max-width: 600px) {
+    .header-item {
+        width: 58%;
+    }
+
+    .header-search__input {
+        height: 16px;
+    }
+
+    nav {
+        width: 42%;
     }
 }
 

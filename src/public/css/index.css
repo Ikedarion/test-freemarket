@@ -27,7 +27,7 @@
 }
 
 .product-list {
-    padding: 4.5% 4%;
+    padding: 4.5% 5%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 5%;
@@ -76,6 +76,4 @@
     .product-name {
         font-size: 13px;
     }
-
-    
 }

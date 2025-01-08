@@ -26,7 +26,7 @@
                     </form>
                 </li>
                 <li>
-                    <a class="nav-list" href="/my-page">マイページ</a>
+                    <a class="nav-list" href="/mypage">マイページ</a>
                 </li>
                 <li>
                     <a class="nav-list-btn" href="/">出品</a>

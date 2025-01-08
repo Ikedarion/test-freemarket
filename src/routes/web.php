@@ -19,13 +19,17 @@ use App\Http\Controllers\RegisterUserController;
 */
 
 Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::resource('products', ProductController::class)->except(['index','destroy']);
-Route::post('/products/comment', [ProductController::class, 'storeComment'])->name('store.comment');
+Route::get('/item/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/sell', [ProductController::class, 'create'])->name('product.create');
+Route::post('/products/sell', [ProductController::class, 'store'])->name('product.store');
+Route::post('/products/comment', [ProductController::class, 'storeComment'])->name('comment.store');
+Route::get('/purchase/{id}', [ProductController::class, 'show'])->name('purchase');
+Route::get('/purchase/address/{id}', [ProductController::class, 'edit'])->name('address');
+Route::patch('/purchase/address/update/{id}', [ProductController::class, 'update'])->name('address.update');
 
-Route::resource('payment', PaymentController::class);
-
-Route::get('/mypage/profile', [UserController::class, 'create'])->name('create.profile');
-Route::post('/profile/create/{id}', [UserController::class, 'store'])->name('store.profile');
+Route::get('/mypage', [UserController::class, 'index'])->name('my-page');
+Route::get('/mypage/profile', [UserController::class, 'create'])->name('profile.create');
+Route::post('/mypage/profile/{id}', [UserController::class, 'store'])->name('profile.store');
 
 
 

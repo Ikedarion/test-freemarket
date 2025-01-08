@@ -1,0 +1,155 @@
+.product__content {
+    width: 100%;
+    height: 100%;
+    max-width: 1560px;
+    box-sizing: border-box;
+    padding: 0 16% 3%;
+    text-align: center;
+    color: #333333;
+}
+
+.product-form {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 480px;
+    width: 100%;
+}
+
+.product-form > div {
+    width: 100%;
+}
+
+.product__group > input,
+.product__group > textarea,
+.product__group > select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.product__group-inner {
+    height: auto;
+    min-height: 120px;
+    border: 1px dashed #c9c9c9;
+    padding: 25px 0;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.product-image {
+    width: 380px;
+    height: 380px;
+    margin: 0 auto;
+    display: none;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.file-name {
+    text-align: center;
+    display: block;
+    font-size: max(13px, min(calc(1.3vw), 14px));
+}
+
+.profile-image__label {
+    width: 85px;
+    border: 1px solid #FF5555;
+    color: #FF5555;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.profile-image__label:hover {
+    background-color: #FF5555;
+    color: white;
+}
+
+.condition,
+.product-name,
+.price,
+.brand-name,
+.color {
+    height: 32px;
+    border: 1px solid #c9c9c9;
+    padding: 0 7px;
+    border-radius: 3px;
+    color: #565658;
+    appearance: none;
+}
+
+.product__group {
+    position: relative;
+}
+
+.fas {
+    position: absolute;
+    font-size: 16px;
+    top: 30px;
+    right: 7px;
+    color: #656565;
+}
+
+.description {
+    height: 62px;
+    border: 1px solid #c9c9c9;
+    padding: 5px 7px;
+    border-radius: 3px;
+    color: #565658;
+}
+
+.product__label {
+    font-size: max(13px, min(calc(1.3vw), 14px));
+    font-weight: bold;
+    display: block;
+    margin: 7% 0 2px;
+}
+
+.heading {
+    font-size: max(17px, min(calc(1.6vw), 18px));
+    font-weight: bold;
+    border-bottom: 1px solid #bababa;
+    margin: 10% 0 4%;
+    color: #595a5d;
+    line-height: 2.2;
+}
+
+.category {
+    border: 1px solid #FF5555;
+    border-radius: 30px;
+    padding: 4px 12px;
+    font-size: max(9px, min(calc(0.9vw), 10px));
+    color: #FF5555;
+    margin: 0 2% 0 3%;
+    white-space: nowrap;
+    line-height: 3.5;
+    cursor: pointer;
+}
+
+.category-checkbox:checked+.category {
+    background-color: #FF5555;
+    color: white;
+}
+
+.sell-btn {
+    margin: 14% 0 10%;
+    font-size: max(13px, min(calc(1.3vw), 14px));
+    background-color: #FF5555;
+    text-align: center;
+    color: white;
+    border-radius: 3px;
+    border: none;
+    height: 36px;
+    font-weight: bold;
+    padding: 0;
+}
+
+.error {
+    color: #FF5555;
+    font-size: 14px;
+}

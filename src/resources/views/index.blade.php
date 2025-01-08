@@ -14,12 +14,12 @@
     <div class="product-list">
         @foreach($products as $product)
         <div class="product_card">
-            <a href="{{ route('products.show', $product->id) }}">
+            <a href="{{ route('product.show', $product->id) }}">
                 <div class="product-image">
                     <img src="{{ Storage::url($product->image) }}" alt="product-image" class="image">
                 </div>
             </a>
-            <a href="{{ route('products.show', $product->id) }}">
+            <a href="{{ route('product.show', $product->id) }}">
                 <div class="product-name">{{ $product->name }}</div>
             </a>
         </div>

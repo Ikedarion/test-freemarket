@@ -7,7 +7,7 @@
 @section('content')
 <div class="profile__content">
     <h2>プロフィール設定</h2>
-    <form action="{{ route('store.profile', $user->id ) }}" method="post" class="profile-form" enctype="multipart/form-data">
+    <form action="{{ route('profile.store', $user->id ) }}" method="post" class="profile-form" enctype="multipart/form-data">
         @csrf
         <div class="profile-image__group">
             @if($user->profile_image || old('image', $user->profile_image))
@@ -82,13 +82,12 @@
 
         imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
-            var fileName = event.target.files[0] ? event.target.files[0].name : '';
+            var fileName = file ? file.name : '';
             document.getElementById('file-name').textContent = fileName;
 
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-
                     const existingImagePreview = document.querySelector('.profile-image__group img');
 
                     if (existingImagePreview) {

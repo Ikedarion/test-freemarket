@@ -7,7 +7,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 10%;
     padding: 3% 16%;
-    color: #2f2f2f;
+    color: #333333;
 }
 
 .product-image {
@@ -240,6 +240,7 @@
     box-sizing: border-box;
     color: #494949;
     font-size: max(10px, min(calc(1.4vw), 15px));
+    border: 1px solid #a2a2a2;
 }
 
 .comment__submit {

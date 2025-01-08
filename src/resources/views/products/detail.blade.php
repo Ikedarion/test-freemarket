@@ -28,7 +28,7 @@
                     <p>{{ $comment }}</p>
                 </div>
             </div>
-            <a href="" class="payment__link">購入手続きへ</a>
+            <a href="{{ route('purchase', $product->id) }}" class="payment__link">購入手続きへ</a>
             <div class="product__heading">商品説明</div>
             <div class="product-text">カラー：
                 <span>{{ $product->color }}</span>
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <form action="{{ route('store.comment') }}" method="post" class="comment-form">
+        <form action="{{ route('comment.store') }}" method="post" class="comment-form">
             @csrf
             <div class="comment__heading">コメント({{ $comment }})</div>
             <div class="user-items">
@@ -89,6 +89,11 @@
                 <div for="comment" class="comment__label">商品へのコメント</div>
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <textarea name="comment" class="comment__textarea">{{ old('comment') }}</textarea>
+                @error('comment')
+                <div class="error">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div>
                 <input type="submit" class="comment__submit" value="コメントを送信する">

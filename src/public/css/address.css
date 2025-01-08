@@ -1,0 +1,57 @@
+.address__content {
+    width: 100%;
+    height: 100%;
+    max-width: 1560px;
+    box-sizing: border-box;
+    padding: 2.5% 5% 3%;
+    text-align: center;
+    color: #333333;
+}
+
+.address-form {
+    width: 80%;
+    max-width: 550px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.address__heading {
+    font-size: max(22px, min(calc(2vw), 25px));
+}
+
+.address-form__label {
+    display: block;
+    width: 100%;
+    margin: 8% 0 3px;
+    font-size: max(9px, calc(0.5vw), 14px);
+    font-weight: bold;
+}
+
+.address-form__input {
+    width: 100%;
+    height: 31px;
+    border-radius: 3px;
+    padding: 1% 3%;
+    box-sizing: border-box;
+    border: 1px solid #9f9f9f;
+}
+
+.address-form-btn {
+    width: 100%;
+    height: 35px;
+    margin: 15% 0 2%;
+    font-size: max(13px, min(calc(1.3vw), 14px));
+    background-color: #FF5555;
+    text-align: center;
+    color: white;
+    border-radius: 3px;
+    border: none;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+@media(max-width: 850px) {
+    .address-form__label {
+        font-size: 13px;
+    }
+}
