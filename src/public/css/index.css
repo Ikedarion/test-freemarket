@@ -3,6 +3,7 @@
     height: 100%;
     max-width: 1560px;
     padding: 15px 0;
+    box-sizing: border-box;
 }
 
 .top-page-list {
@@ -27,7 +28,7 @@
 }
 
 .product-list {
-    padding: 4.5% 5%;
+    padding: 4.5% 5% 7%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 5%;

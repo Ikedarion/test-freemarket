@@ -1,0 +1,54 @@
+@extends('layouts.app')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/my-page.css') }}">
+@endsection
+
+@section('content')
+<div class="my-page__content">
+    <div class="user__group">
+        <div class="user__items">
+            <div class="user-image">
+                <img src="{{ Storage::url($user->profile_image) }}" alt="profile-image">
+            </div>
+            <div class="user-name">{{ $user->name }}</div>
+        </div>
+        <a href="{{ route('profile.create') }}" class="profile__link">プロフィールを編集</a>
+    </div>
+    <div class="product__group">
+        <div class="my-page-list">
+            <a href="{{ route('my-page', ['page' => 'buy']) }}" class="list-item {{ request('page') === 'buy' ? 'active' : ''}}">購入した商品</a>
+            <a href="{{ route('my-page', ['page' => 'sell']) }}" class="list-item {{ request('page') === 'sell' || request('page') === null ? 'active' : ''}}">出品した商品</a>
+        </div>
+        <div class="product-list">
+            @if(request('page') === 'sell')
+            @foreach($products as $product)
+            <div class="product-card">
+                <a href="{{ route('product.show', $product->id) }}">
+                    <div class="product-image">
+                        <img src="{{ Storage::url($product->image) }}" alt="product-image">
+                    </div>
+                </a>
+                <a href="{{ route('product.show', $product->id) }}">
+                    <div class="product-name">{{ $product->name }}</div>
+                </a>
+            </div>
+            @endforeach
+            @elseif(request('page') === 'buy')
+            @foreach($purchases as $purchase)
+            <div class="product-card">
+                <a href="{{ route('product.show', $purchase->product->id) }}">
+                    <div class="product-image">
+                        <img src="{{ storage::url($purchase->product->image) }}" alt="product-image">
+                    </div>
+                </a>
+                <a href="{{ route('product.show', $purchase->product->id) }}">
+                    <div class="product-name">{{ $purchase->product->name }}</div>
+                </a>
+            </div>
+            @endforeach
+            @endif
+        </div>
+    </div>
+</div>
+@endsection

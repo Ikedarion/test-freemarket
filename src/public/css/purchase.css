@@ -144,7 +144,7 @@
 
 .payment-btn {
     width: 100%;
-    margin: 14% 0 10%;
+    margin: 14% 0 0%;
     font-size: max(13px, min(calc(1.3vw), 14px));
     background-color: #FF5555;
     text-align: center;

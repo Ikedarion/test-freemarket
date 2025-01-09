@@ -3,16 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Http\Request;
 use App\Models\ShippingAddress;
+use App\Models\Purchase;
+use App\Models\Product;
+use App\Models\User;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('my-page');
+        $user = User::find(auth()->id());
+        $page = $request->query('page', 'sell');
+
+        if ($page === 'buy') {
+            $purchases = Purchase::with('product')
+            ->where('user_id', auth()->id())
+            ->get();
+            return view('my-page', compact('user', 'purchases'));
+        } elseif ($page === 'sell') {
+            $products = Product::where('user_id', auth()->id())->get();
+            return view('my-page', compact('user', 'products'));
+        }
     }
 
     public function create()
@@ -21,7 +35,7 @@ class UserController extends Controller
         $shipping_address = ShippingAddress::where('id', $userId)->first();
         $user = User::where('id',$userId)->first();
 
-        return view('profile',compact('user','shipping_address'));
+        return view('profile', compact('user','shipping_address'));
     }
 
     public function store(ProfileRequest $profileRequest,

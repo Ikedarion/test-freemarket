@@ -3,7 +3,7 @@
     height: 100%;
     max-width: 1560px;
     box-sizing: border-box;
-    padding: 0 16% 3%;
+    padding: 0 16% 2%;
     text-align: center;
     color: #333333;
 }
@@ -137,7 +137,7 @@
 }
 
 .sell-btn {
-    margin: 14% 0 10%;
+    margin: 14% 0 0;
     font-size: max(13px, min(calc(1.3vw), 14px));
     background-color: #FF5555;
     text-align: center;

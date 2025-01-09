@@ -6,12 +6,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14%;
-    padding: 3% 17%;
+    padding: 3% 17% 1%;
     color: #333333;
-}
-
-.detail__inner {
-    max-width: 1500px;
 }
 
 .product-image {
@@ -276,7 +272,6 @@
     margin-top: 8%;
     border-radius: 3px;
     border: none;
-    margin-bottom: 15%;
     font-weight: bold;
 }
 
