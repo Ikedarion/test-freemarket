@@ -7,7 +7,7 @@
 @section('content')
 <div class="top-page__content">
     <div class="top-page-list">
-        <a href="{{ route('home', ['page' => 'recommend']) }}" class="{{ request('page') === 'recommend' ? 'active' : '' }}">おすすめ</a>
+        <a href="{{ route('home') }}" class="{{ request('page') === null ? 'active' : '' }}">おすすめ</a>
         <a href="{{ route('home', ['page' => 'my-list']) }}" class="{{ request('page') === 'my-list' ? 'active' : '' }}">マイリスト</a>
     </div>
 

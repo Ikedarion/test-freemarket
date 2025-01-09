@@ -18,14 +18,22 @@
                 <span>￥</span>{{ number_format($product->price) }}<span class="product-tax">(税込)</span>
             </div>
             <div class="icons">
-                <form action="" method="post" class="star-icon">
+                <form action="{{ route('like', $product->id) }}" method="post" class="star-icon">
                     @csrf
-                    <button class="likes-btn"><i class="far fa-star"></i></button>
-                    <p>{{ $likes }}</p>
+                    <button class="likes-btn">
+                        @if($isLiked)
+                        <i class="fas fa-star yellow"></i>
+                        @else
+                        <i class="far fa-star"></i>
+                        @endif
+                    </button>
+                    <p>{{ $product->likedByUsers->count() }}</p>
                 </form>
                 <div class="comment-icon">
-                    <i class="far fa-comment"></i>
-                    <p>{{ $comment }}</p>
+                    <div class="comment-btn">
+                        <i class="far fa-comment"></i>
+                    </div>
+                    <p>{{ $product->comments->count() }}</p>
                 </div>
             </div>
             <a href="{{ route('purchase', $product->id) }}" class="payment__link">購入手続きへ</a>
@@ -50,7 +58,7 @@
 
         <form action="{{ route('comment.store') }}" method="post" class="comment-form">
             @csrf
-            <div class="comment__heading">コメント({{ $comment }})</div>
+            <div class="comment__heading">コメント({{ $product->comments->count() }})</div>
             <div class="user-items">
                 @if($product->user->profile_image)
                 <div class="user-image">

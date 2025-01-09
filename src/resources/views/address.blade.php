@@ -7,7 +7,7 @@
 @section('content')
 <div class="address__content">
     <h2 class="address__heading">住所の変更</h2>
-    <form action="{{ route('address.update', $shipping_address ? $shipping_address->postal_code : '') }}" method="post" class="address-form">
+    <form action="{{ route('address.update', $shipping_address->id) }}" method="post" class="address-form">
         @csrf
         @method('PATCH')
         <label for="postal_code" class="address-form__label">郵便番号</label>
@@ -33,6 +33,7 @@
             {{ $message }}
         </div>
         @enderror
+        <input type="hidden" name="product_id" value="{{ $product_id }}">
 
         <input type="submit" class="address-form-btn" value="更新する">
     </form>

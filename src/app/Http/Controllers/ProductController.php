@@ -18,13 +18,13 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $userId = Auth::id();
-        $page = $request->query('page','recommend');
+        $page = $request->query('page', null);
 
-        if ($page === 'recommend') {
+        if ($page === null) {
             $products = Product::all();
         } elseif ($page === 'my-list') {
-            $products = Product::whereHas( 'likedByUsers', function ($query) use ($userId) {
-                $query->where('user_id',$userId);
+            $products = Product::whereHas('likedByUsers', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
             })->get();
         }
 
@@ -65,30 +65,44 @@ class ProductController extends Controller
         return redirect()->route('my-page')->with(['success' => '商品の出品が完了しました。']);
     }
 
-    public function show($id)
+    public function showDetail($id)
     {
-        $product = Product::with(['categories','comments'])->find($id);
-        $comment = Comment::where('product_id', $id)->count();
-        $likes = Like::where('product_id', $id)->count();
+        $product = Product::with(['categories','comments','likedByUsers'])->find($id);
 
-        return view('products.detail', compact('product', 'comment','likes'));
+        $isLiked = $product->likedByUsers->contains(auth()->id());
+
+        return view('products.detail', compact('product','isLiked'));
+    }
+
+    public function showPurchaseForm($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return redirect('/')->with('error', '商品が見つかりません。');
+        }
+
+        $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
+
+        return view('purchase',compact('product','shipping_address'));
     }
 
     public function edit($id)
     {
-        $userId = Auth::id();
-        $shipping_address = ShippingAddress::where('user_id', $userId)->first();
+        $product_id = Product::find($id)->id;
+        $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
 
-        return view('address', compact('shipping_address'));
+        return view('address', compact('shipping_address', 'product_id'));
     }
 
     public function update(AddressRequest $request, $id)
     {
         $addressData = $request->only('postal_code', 'address', 'building_name');
         $shipping_address = ShippingAddress::find($id);
+
         $shipping_address->update($addressData);
 
-        return redirect()->route('')->with('住所が更新されました。');
+        return redirect()->route('purchase', ['id' => $request->input('product_id')]);
     }
 
     public function storeComment(CommentRequest $request)
@@ -98,7 +112,26 @@ class ProductController extends Controller
             'user_id' => Auth::id(),
             'product_id' => $request->input('product_id'),
         ]);
-        return redirect()->back()->with('コメントを送信しました。');
+
+        return redirect()->back()->with('success','コメントを送信しました。');
+    }
+
+    public function like($id)
+    {
+        $userId = Auth::id();
+        $likes = like::where('user_id', $userId)
+                    ->where('product_id', $id)->first();
+
+        if($likes) {
+            $likes->delete();
+            return redirect()->back();
+        } else {
+            Like::create([
+                'user_id' => $userId,
+                'product_id' => $id,
+            ]);
+            return redirect()->back();
+        }
     }
 
 

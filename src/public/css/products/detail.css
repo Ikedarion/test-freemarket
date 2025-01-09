@@ -5,19 +5,25 @@
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10%;
-    padding: 3% 16%;
+    gap: 14%;
+    padding: 3% 17%;
     color: #333333;
+}
+
+.detail__inner {
+    max-width: 1500px;
 }
 
 .product-image {
     width: 100%;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .product-image img {
     width: 100%;
+    object-fit: cover;
     border-radius: 3px;
+    aspect-ratio: 1 / 1;
 }
 
 .product-detail {
@@ -42,11 +48,11 @@
 .product-text,
 .product__heading,
 .product-label {
-    margin-bottom: 5%;
+    margin-bottom: 6%;
 }
 
 .product-name {
-    font-size: max(17px, min(calc(8px + 2vw), 34px));
+    font-size: max(17px, min(calc(8px + 2vw), 31px));
     font-weight: bold;
     margin-bottom: 3px;
 }
@@ -56,7 +62,7 @@
 }
 
 .product-price {
-    font-size: max(14px, min(calc(2px + 2vw), 28px));
+    font-size: max(14px, min(calc(2px + 2vw), 25px));
 }
 
 .product-tax {
@@ -70,14 +76,21 @@
 .icons {
     display: flex;
     gap: 10%;
+    align-items: center;
     font-weight: lighter;
     padding-left: 5%;
     box-sizing: border-box;
+    margin-bottom: 1%;
 }
 
-.far {
-    font-size: calc(2vw);
+.far,
+.fas {
+    font-size: max(14px, min(calc(2vw), 23px));
     color: #5c5d5e;
+}
+
+.fas.fa-star.yellow {
+    color: #ffb92d;
 }
 
 .star-icon,
@@ -85,20 +98,30 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.comment-icon {
+    padding: 0 2.5%;
 }
 
 .star-icon p,
 .comment-icon p {
-    font-size: max(8px, min(calc(1vw), 12px));
+    font-size: max(7px, min(calc(1vw), 13px));
     color: #5c5d5e;
-    margin-top: 0px;
 }
 
-.likes-btn {
-    height: 15.5px;
-    padding: 0;
+.likes-btn,
+.comment-btn {
+    height: max(10px, min(calc(1.4vw), 12px));
     background-color: transparent;
     border: none;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .payment__link {
@@ -116,7 +139,7 @@
 
 .product__heading,
 .comment__heading {
-    font-size: max(13px, min(calc(2vw), 22px));
+    font-size: max(13px, min(calc(2vw), 20px));
     font-weight: bold;
 }
 
@@ -190,7 +213,7 @@
 
 .comment__heading {
     color: #6b6c6d;
-    margin-top: 8%;
+    margin-top: 9%;
 }
 
 .comment-form > div {
@@ -280,7 +303,7 @@
 @media(max-width: 1100px) {
     .detail__content {
         padding: 3% 9%;
-        gap: 7%;
+        gap: 10%;
     }
 
 }

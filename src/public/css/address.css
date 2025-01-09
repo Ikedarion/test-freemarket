@@ -50,6 +50,11 @@
     box-sizing: border-box;
 }
 
+.error {
+    color: #FF5555;
+    font-size: 14px;
+}
+
 @media(max-width: 850px) {
     .address-form__label {
         font-size: 13px;

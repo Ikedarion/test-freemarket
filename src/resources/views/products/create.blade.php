@@ -33,7 +33,7 @@
         <div class="product__group">
             <label for="category" class="product__label">カテゴリー</label>
             @foreach($categories as $category)
-            <input id="{{ $category->id }}" name="category_id[]" type="checkbox" value="{{ $category->id }}" style="display: none;" class="category-checkbox">
+            <input id="{{ $category->id }}" name="category_id[]" type="checkbox" value="{{ $category->id }}" {{ in_array($category->id, old('category_id', [])) ? 'checked' : ''}} style="display: none;" class="category-checkbox">
             <label class="category" for="{{ $category->id }}">{{ $category->name }}
             </label>
             @endforeach
@@ -50,7 +50,7 @@
             <select name="color" id="color" class="color">
                 <option value="" hidden>選択する</option>
                 @foreach($colors as $color)
-                <option value="{{ $color }}">{{ $color }}</option>
+                <option value="{{ $color }}" {{ old('color', $color) ? 'selected' : '' }}>{{ $color }}</option>
                 @endforeach
             </select>
         </div>
@@ -66,7 +66,7 @@
             <select name="condition" id="condition" class="condition">
                 <option value="" hidden>選択する</option>
                 @foreach($conditions as $condition)
-                <option value="{{ $condition }}">{{ $condition }}</option>
+                <option value="{{ $condition }}" {{ old('condition', $condition) ? 'selected' : '' }}>{{ $condition }}</option>
                 @endforeach
             </select>
         </div>

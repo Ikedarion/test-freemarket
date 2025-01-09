@@ -19,13 +19,14 @@ use App\Http\Controllers\RegisterUserController;
 */
 
 Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('/item/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/item/{id}', [ProductController::class, 'showDetail'])->name('product.show');
+Route::post('/products/comment', [ProductController::class, 'storeComment'])->name('comment.store');
 Route::get('/sell', [ProductController::class, 'create'])->name('product.create');
 Route::post('/products/sell', [ProductController::class, 'store'])->name('product.store');
-Route::post('/products/comment', [ProductController::class, 'storeComment'])->name('comment.store');
-Route::get('/purchase/{id}', [ProductController::class, 'show'])->name('purchase');
+Route::get('/purchase/{id}', [ProductController::class, 'showPurchaseForm'])->name('purchase');
 Route::get('/purchase/address/{id}', [ProductController::class, 'edit'])->name('address');
 Route::patch('/purchase/address/update/{id}', [ProductController::class, 'update'])->name('address.update');
+Route::post('/likes/{id}', [ProductController::class, 'like'])->name('like');
 
 Route::get('/mypage', [UserController::class, 'index'])->name('my-page');
 Route::get('/mypage/profile', [UserController::class, 'create'])->name('profile.create');

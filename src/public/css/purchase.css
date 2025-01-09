@@ -54,18 +54,19 @@
 }
 
 .product-name {
-    font-size: max(13px, min(calc(1.4vw)), 14px);
+    font-size: max(13px, min(calc(1.6vw)), 14px);
     font-weight: bold;
 }
 
 .product-price {
-    font-size: max(13px, min(calc(1.4vw)), 14px);
+    font-size: max(13px, min(calc(1.5vw)), 14px);
 }
 
 .purchase-form__label {
     font-size: max(10px, min(calc(1vw)), 12px);
     display: block;
     margin-bottom: 5%;
+    font-weight: bold;
 }
 
 .group-items {

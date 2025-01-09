@@ -29,23 +29,23 @@
                     <a class="nav-list" href="/mypage">マイページ</a>
                 </li>
                 <li>
-                    <a class="nav-list-btn" href="/">出品</a>
+                    <a class="nav-list-btn" href="/sell">出品</a>
                 </li>
             </ul>
         </nav>
     </header>
-    @if(session('error'))
-    <div class="error-message">
-        {{ session('error') }}
-    </div>
-    @endif
-    @if(session('success'))
-    <div class="success-message">
-        {{ session('success') }}
-    </div>
-    @endif
 
     <div class="main__content">
+        @if(session('error'))
+        <div class="error-message">
+            {{ session('error') }}
+        </div>
+        @endif
+        @if(session('success'))
+        <div class="success-message">
+            {{ session('success') }}
+        </div>
+        @endif
         @yield('content')
     </div>
     @stack('scripts')

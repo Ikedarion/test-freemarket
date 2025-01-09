@@ -41,6 +41,7 @@ class UserController extends Controller
 
         $shipping_address = $addressRequest->only('postal_code', 'address', 'building_name');
         $shipping_address['user_id'] = $id;
+
         ShippingAddress::create($shipping_address);
 
         return redirect()->route('home')->with('success', 'プロフィールが作成されました');
