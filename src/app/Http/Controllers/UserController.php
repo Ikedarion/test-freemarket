@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AddressRequest;
 
+use function PHPUnit\Framework\isEmpty;
+
 class UserController extends Controller
 {
     public function index(Request $request)
@@ -23,7 +25,7 @@ class UserController extends Controller
             ->where('user_id', auth()->id())
             ->get();
             return view('my-page', compact('user', 'purchases'));
-        } elseif ($page === 'sell') {
+        } else {
             $products = Product::where('user_id', auth()->id())->get();
             return view('my-page', compact('user', 'products'));
         }

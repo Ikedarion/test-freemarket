@@ -17,6 +17,16 @@
     </div>
 </header>
 <div class="main__content">
+    @if(session('error'))
+    <div class="error-message">
+        {{ session('error') }}
+    </div>
+    @endif
+    @if(session('success'))
+    <div class="success-message">
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="login__content">
         <h2>ログイン</h2>
         <form action="/login" method="post" class="form">

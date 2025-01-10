@@ -1,17 +1,17 @@
 .purchase__content {
     width: 100%;
     height: 100%;
-    max-width: 1560px;
     box-sizing: border-box;
-    padding: 4% 7% 0;
+    padding: 6% 7% 0;
     color: #333333;
 }
 
 .purchase-form {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 6%;
-    width: 100%;
+    gap: 7%;
+    width: 95%;
+    margin: 0 auto;
 }
 
 .left,

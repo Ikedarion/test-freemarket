@@ -9,7 +9,11 @@
     <div class="user__group">
         <div class="user__items">
             <div class="user-image">
+                @if($user->profile_image)
                 <img src="{{ Storage::url($user->profile_image) }}" alt="profile-image">
+                @else
+                <div class="default-image"></div>
+                @endif
             </div>
             <div class="user-name">{{ $user->name }}</div>
         </div>
@@ -17,11 +21,12 @@
     </div>
     <div class="product__group">
         <div class="my-page-list">
-            <a href="{{ route('my-page', ['page' => 'buy']) }}" class="list-item {{ request('page') === 'buy' ? 'active' : ''}}">購入した商品</a>
-            <a href="{{ route('my-page', ['page' => 'sell']) }}" class="list-item {{ request('page') === 'sell' || request('page') === null ? 'active' : ''}}">出品した商品</a>
+            <a href="{{ route('my-page', ['page' => 'sell']) }}"
+                class="list-item {{ request('page') === 'sell' || request('page') === null ? 'active' : ''}}">出品した商品</a>
+            <a href="{{ route('my-page', ['page' => 'buy'])  }}" class="list-item {{ request('page') === 'buy' ? 'active' : ''}}">購入した商品</a>
         </div>
         <div class="product-list">
-            @if(request('page') === 'sell')
+            @if(request('page') === 'sell' || request('page') === null)
             @foreach($products as $product)
             <div class="product-card">
                 <a href="{{ route('product.show', $product->id) }}">

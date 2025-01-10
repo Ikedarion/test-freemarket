@@ -99,10 +99,41 @@ nav ul {
 
 .main__content {
     height: auto;
-    padding: 90px 0 20px;
+    padding: 68px 0 20px;
     width: 100vw;
     min-height: 100vh;
     box-sizing: border-box;
+}
+
+.success-message,
+.error-message {
+    height: 30px;
+    text-align: center;
+    padding: 8px 0 0;
+    font-size: 15px;
+    animation: slideIn 0.9s forwards;
+}
+
+.error-message {
+    background-color: #fee8e8;
+    color: #d55252;
+}
+
+.success-message {
+    background-color: #dbf1db;
+    color: #467146;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @media(max-width: 1100px) {

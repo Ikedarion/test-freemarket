@@ -13,7 +13,7 @@
 
     <div class="product-list">
         @foreach($products as $product)
-        <div class="product_card">
+        <div class="product-card">
             <a href="{{ route('product.show', $product->id) }}">
                 <div class="product-image">
                     <img src="{{ Storage::url($product->image) }}" alt="product-image" class="image">

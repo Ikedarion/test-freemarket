@@ -102,7 +102,7 @@ class ProductController extends Controller
 
         $shipping_address->update($addressData);
 
-        return redirect()->route('purchase', ['id' => $request->input('product_id')]);
+        return redirect()->route('purchase', ['id' => $request->input('product_id')])->with('success', '住所の変更が完了しました。');
     }
 
     public function storeComment(CommentRequest $request)
