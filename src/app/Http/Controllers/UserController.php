@@ -59,7 +59,7 @@ class UserController extends Controller
                             AddressRequest $addressRequest, $id) {
         $user = User::findOrFail($id);
 
-        $user->name = $profileRequest->input('name');
+        $user->name = $addressRequest->input('name');
 
         if ($profileRequest->hasFile('image')) {
             $imagePath = $profileRequest->file('image')->store('profile_images', 'public');
@@ -86,7 +86,7 @@ class UserController extends Controller
         try {
             $user = User::findOrFail($id);
             $userData = [
-                'name' => $profileRequest->input('name'),
+                'name' => $addressRequest->input('name'),
             ];
 
             if ($profileRequest->hasFile('image')) {

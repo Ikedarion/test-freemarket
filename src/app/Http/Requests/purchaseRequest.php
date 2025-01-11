@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class PurchaseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,16 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'mimes:jpeg,png',
+            'payment_method' => 'required',
+            'shipping_address' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'image.mimes' => '画像はjpeg形式またはpng形式を選択してください。',
+            'payment_method.required' => '支払い方法を選択してください。',
+            'shipping_address.required' => '配送先を選択してください。'
         ];
     }
 }
