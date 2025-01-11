@@ -34,6 +34,7 @@ class AddressRequest extends FormRequest
     {
         return [
             'postal_code.required' => '郵便番号を入力してください。',
+            'postal_code.regex' => '郵便番号は8文字の数字で入力してください。',
             'address.required' => '住所を入力してください.',
             'building_name' => '建物名を入力してください。',
         ];

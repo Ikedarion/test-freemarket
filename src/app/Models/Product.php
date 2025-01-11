@@ -40,4 +40,12 @@ class Product extends Model
     public function purchase() {
         return $this->hasOne(Purchase::class);
     }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if(!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+        return $query;
+    }
 }

@@ -19,17 +19,28 @@ class Purchase extends Model
         'product_id',
     ];
 
-    protected function user() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 
-    protected function product()
+    public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    protected function shipping_address()
+    public function shipping_address()
     {
         return $this->belongsTo(ShippingAddress::class);
+    }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->whereHas('product', function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        return $query;
     }
 }
