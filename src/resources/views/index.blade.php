@@ -7,10 +7,16 @@
 @section('content')
 <div class="top-page__content">
     <div class="top-page-list">
-        <a href="{{ route('home') }}" class="{{ request('page') === null ? 'active' : '' }}">おすすめ</a>
-        <a href="{{ route('home', ['page' => 'my-list']) }}" class="{{ request('page') === 'my-list' ? 'active' : '' }}">マイリスト</a>
+        <a href="{{ route('home', ['keyword' => request('keyword'), 'page' => null]) }}" class="{{ request('page') === null ? 'active' : '' }}">おすすめ</a>
+        <a href="{{ route('home', ['keyword' => request('keyword'), 'page' => 'my-list']) }}" class="{{ request('page') === 'my-list' ? 'active' : '' }}">マイリスト</a>
+        @if (request('keyword'))
+        <a href="{{ route('home')}}" class="reset-btn">検索をリセットする</a>
+        @endif
     </div>
 
+    @if($products->isEmpty())
+    <div class="empty-message">該当する商品がありません。</div>
+    @else
     <div class="product-list">
         @foreach($products as $product)
         <div class="product-card">
@@ -24,6 +30,7 @@
             </a>
         </div>
         @endforeach
+        @endif
     </div>
 </div>
 @endsection

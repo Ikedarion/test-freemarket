@@ -7,10 +7,13 @@
 @section('content')
 <div class="profile__content">
     <h2>プロフィール設定</h2>
-    <form action="{{ route('profile.store', $user->id ) }}" method="post" class="profile-form" enctype="multipart/form-data">
+    <form action="{{ isset($user) && isset($shipping_address) ? route('profile.update', $user->id) : route('profile.store', $user->id) }}" method="post" class="profile-form" enctype="multipart/form-data">
         @csrf
+        @if(isset($user) && isset($shipping_address))
+        @method('PATCH')
+        @endif
         <div class="profile-image__group">
-            @if($user->profile_image || old('image', $user->profile_image))
+            @if(isset($user) && $user->profile_image)
             <img src="{{ Storage::url($user->profile_image) }}"
                 alt="profile-image" class="image" id="profile-image-preview">
             @else
@@ -19,7 +22,7 @@
             <label for="image" class="profile-image__label">
                 {{ isset($user) && $user->profile_image ? '画像を変更する' : '画像を選択する' }}
             </label>
-            <p id="file-name" class="file-name">{{ old('image') ? basename(old('image')) : ''}}</p>
+            <p id="file-name" class="file-name"></p>
             <input type="file" name="image" id="image" style="display: none;">
         </div>
         @error('image')
@@ -79,6 +82,7 @@
         const imageButton = document.querySelector('.profile-image__label');
         const imageInput = document.getElementById('image');
         const defaultImageDiv = document.querySelector('.profile-image__group .image-default');
+        const postalCodeInput = document.getElementById('postal-code');
 
         imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
@@ -106,6 +110,22 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        postalCodeInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 3) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 7);
+            }
+            e.target.value = value;
+        })
+
+        document.querySelector('.form').addEventListener('submit', function(e) {
+            let value = postalCodeInput.value.replace(/\D/g, '');
+            if (value.length === 7 && !value.includes('-')) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 4);
+            }
+            postalCodeInput.value = value;
+        })
     });
 </script>
 @endpush

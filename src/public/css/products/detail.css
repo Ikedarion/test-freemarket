@@ -6,7 +6,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 14%;
     padding: 5% 17% 2%;
-    color: #333333;
+    color: #464646;
 }
 
 .product-image {
@@ -38,26 +38,29 @@
 }
 
 .product-brand-name,
-.product-price,
 .payment__link,
-.product-text,
 .product__heading,
 .product-label {
+    margin-bottom: 6.5%;
+}
+
+.product-text,
+.product-price {
     margin-bottom: 6%;
 }
 
 .product-name {
-    font-size: max(17px, min(calc(8px + 2vw), 31px));
+    font-size: max(17px, min(calc(5px + 2vw), 26px));
     font-weight: bold;
     margin-bottom: 3px;
 }
 
 .product-brand-name {
-    font-size: max(7px, min(calc(1vw), 15px));
+    font-size: max(7px, min(calc(0.8vw), 14px));
 }
 
 .product-price {
-    font-size: max(14px, min(calc(2px + 2vw), 25px));
+    font-size: max(14px, min(calc(1px + 2vw), 24px));
 }
 
 .product-tax {
@@ -65,7 +68,7 @@
 }
 
 .product-price span {
-    font-size: max(10px, min(calc(1.8vw), 22px));
+    font-size: max(10px, min(calc(1.7vw), 20px));
 }
 
 .icons {
@@ -134,7 +137,7 @@
 
 .product__heading,
 .comment__heading {
-    font-size: max(13px, min(calc(2vw), 20px));
+    font-size: max(13.5px, min(calc(1.7vw), 20px));
     font-weight: bold;
 }
 
@@ -143,12 +146,12 @@
 }
 
 .product-text {
-    font-size: max(10px, min(calc(1.3vw), 15px));
+    font-size: max(10px, min(calc(1.2vw), 15px));
     flex-wrap: wrap;
 }
 
 .product-label {
-    font-size: max(10px, min(calc(1.3vw), 16px));
+    font-size: max(10px, min(calc(1.2vw), 16px));
     font-weight: bold;
     display: inline;
     margin-right: 7%;
@@ -159,7 +162,7 @@
 }
 
 .category-name {
-    font-size: max(9px, min(calc(1vw), 15px));
+    font-size: max(9px, min(calc(0.8vw), 14px));
     background-color: #eaeaea;
     border-radius: 15px;
     padding: 0 4%;
@@ -179,8 +182,8 @@
 
 .image-default,
 .user-image {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: #eaeaea;
     margin: 15px 15px 20px 0;
@@ -195,7 +198,7 @@
 }
 
 .user-name {
-    font-size: max(12px, min(calc(1.5vw), 17px));
+    font-size: max(11px, min(calc(1.4vw), 15px));
     font-weight: bold;
 }
 
@@ -224,8 +227,12 @@
 }
 
 .comment__group {
-    font-size: max(8px, min(calc(1.2vw), 13px));
+    font-size: max(7px, min(calc(1vw), 13px));
     margin-bottom: 6%;
+}
+
+.comment__user-name {
+    font-size: max(8.5px, min(calc(1.1vw), 12px));
 }
 
 .comment-items {
@@ -234,19 +241,19 @@
     justify-content: space-between;
 }
 
-.comment-user-item {
+.comment__user-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
-.comment-text {
+.comment__text {
     margin: 0 3px;
     box-sizing: border-box;
 }
 
 .comment__label {
     margin: 7% 0 1%;
-    font-size: max(13px, min(calc(1.6vw), 19px));
+    font-size: max(13px, min(calc(1.5vw), 18px));
     font-weight: bold;
 }
 
@@ -276,8 +283,8 @@
 
 .comment__default-image,
 .comment__user-image {
-    width: 23px;
-    height: 23px;
+    width: 18px;
+    height: 18px;
     margin: 0 10px 5px 0;
     display: inline-block;
     overflow: hidden;
@@ -291,7 +298,8 @@
 }
 
 .comment-timestamp {
-    font-size: max(5px, min(calc(0.9vw), 10px));;
+    font-size: max(5px, min(calc(0.9vw), 9px));
+    margin-bottom: 5px;
 }
 
 @media(max-width: 1100px) {
@@ -300,20 +308,34 @@
         gap: 10%;
     }
 
+    .comment__user-item {
+        align-items: center;
+        padding-bottom: 3px;
+    }
+
 }
 
 @media(max-width: 850px) {
     .comment__default-image,
     .comment__user-image {
-        width: 17px;
-        height: 17px;
+        width: 16px;
+        height: 16px;
         margin: 0 6px 3px 0;
     }
 
     .image-default,
     .user-image {
-        width: 35px;
-        height: 35px;
+        width: 32px;
+        height: 32px;
         margin: 15px 15px 20px 0;
+    }
+}
+
+@media(max-width: 767px) {
+    .comment__default-image,
+    .comment__user-image {
+        width: 15px;
+        height: 15px;
+        margin: 0 6px 3px 0;
     }
 }

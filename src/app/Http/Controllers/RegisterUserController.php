@@ -26,7 +26,7 @@ class RegisterUserController extends Controller
         $user = $creator->create($request->all());
         event(new Registered($user));
 
-        return redirect()->route('create.profile');
+        return redirect()->route('profile.create');
     }
 
     public function login(LoginRequest $request) {

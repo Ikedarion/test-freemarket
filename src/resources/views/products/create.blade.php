@@ -33,9 +33,8 @@
         <div class="product__group">
             <label for="category" class="product__label">カテゴリー</label>
             @foreach($categories as $category)
-            <input id="{{ $category->id }}" name="category_id[]" type="checkbox" value="{{ $category->id }}" {{ in_array($category->id, old('category_id', [])) ? 'checked' : ''}} style="display: none;" class="category-checkbox">
-            <label class="category" for="{{ $category->id }}">{{ $category->name }}
-            </label>
+            <input id="{{ $category->id }}" name="category_id[]" type="checkbox" class="category-checkbox" style="display: none;" value="{{ $category->id }}" {{ in_array($category->id, old('category_id', [])) ? 'checked' : ''}}>
+            <label class="category" for="{{ $category->id }}">{{ $category->name }}</label>
             @endforeach
         </div>
         @error('category_id')
@@ -79,7 +78,7 @@
         <div class="heading">商品名と説明</div>
         <div class="product__group">
             <label for="name" class="product__label">商品名</label>
-            <input name="name" type="text" class="product-name">
+            <input name="name" type="text" class="product-name" value="{{ old('name') }}">
         </div>
         @error('name')
         <div class="error">
@@ -89,7 +88,7 @@
 
         <div class="product__group">
             <label for="brand_name" class="product__label">ブランド名</label>
-            <input name="brand_name" type="text" class="brand-name">
+            <input name="brand_name" type="text" class="brand-name" value="{{ old('brand_name') }}">
         </div>
         @error('brand_name')
         <div class="error">
@@ -99,7 +98,7 @@
 
         <div class="product__group">
             <label for="description" class="product__label">商品の説明</label>
-            <textarea type="text" name="description" id="description" class="description"></textarea>
+            <textarea type="text" name="description" id="description" class="description">{{ old('description') }}</textarea>
         </div>
         @error('description')
         <div class="error">
@@ -109,7 +108,7 @@
 
         <div class="product__group">
             <label for="price" class="product__label">販売価格</label>
-            <input name="price" type="text" class="price" placeholder="￥">
+            <input name="price" type="text" class="price" placeholder="￥" value="{{ old('price') }}">
         </div>
         @error('price')
         <div class="error">

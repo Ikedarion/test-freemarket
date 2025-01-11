@@ -24,13 +24,14 @@ Route::post('/products/comment', [ProductController::class, 'storeComment'])->na
 Route::get('/sell', [ProductController::class, 'create'])->name('product.create');
 Route::post('/products/sell', [ProductController::class, 'store'])->name('product.store');
 Route::get('/purchase/{id}', [ProductController::class, 'showPurchaseForm'])->name('purchase');
-Route::get('/purchase/address/{id}', [ProductController::class, 'edit'])->name('address');
-Route::patch('/purchase/address/update/{id}', [ProductController::class, 'update'])->name('address.update');
 Route::post('/likes/{id}', [ProductController::class, 'like'])->name('like');
 
 Route::get('/mypage', [UserController::class, 'index'])->name('my-page');
 Route::get('/mypage/profile', [UserController::class, 'create'])->name('profile.create');
 Route::post('/mypage/profile/{id}', [UserController::class, 'store'])->name('profile.store');
+Route::patch('/mypage/profile/update/{id}', [UserController::class, 'update'])->name('profile.update');
+Route::get('/purchase/address/{id}', [UserController::class, 'edit'])->name('address');
+Route::patch('/purchase/address/update/{id}', [UserController::class, 'updateAddress'])->name('address.update');
 
 
 

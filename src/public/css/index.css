@@ -3,27 +3,43 @@
     height: 100%;
     padding: 5% 0 15px;
     box-sizing: border-box;
+    color: #464646;
 }
 
 .top-page-list {
     width: 100%;
     display: flex;
-    border-bottom: 1px solid #808080;
+    border-bottom: 1px solid #9f9f9f;
     padding: 0 10%;
     gap: 6%;
     font-weight: bold;
-    font-size: max(12px, min(calc(1.2vw), 18px));
+    font-size: max(11px, min(calc(1.2vw), 15px));
     box-sizing: border-box;
+    position: relative;
 }
 
 .top-page-list a {
     text-decoration: none;
-    color: #666666;
-    padding-bottom: 5px;
+    color: #707070;
+    margin-bottom: 5px;
 }
 
 .top-page-list a.active{
-    color: #ff1818;
+    color: #ff2f2f;
+}
+
+.reset-btn {
+    font-size: max(6px, min(calc(0.8vw), 10px));
+    color: #6b6b6b;
+    border: 0.5px solid #6b6b6b;
+    background-color: #f8f8f8;
+    font-weight: lighter;
+    padding: 3px 7px;
+    border-radius: 3px;
+    text-decoration: none;
+    position: absolute;
+    right: 10%;
+    bottom: 1px;
 }
 
 .product-list {
@@ -32,6 +48,13 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 5%;
     box-sizing: border-box;
+}
+
+.empty-message {
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+    color: #666666;
 }
 
 .product-card {
@@ -68,18 +91,18 @@
 
 @media(max-width: 1100px) {
     .product-name {
-        font-size: 15px;
+        font-size: 14px;
     }
 }
 
 @media(max-width: 850px) {
     .product-name {
-        font-size: 13px;
+        font-size: 12px;
     }
 }
 
 @media(max-width: 767px) {
     .product-name {
-        font-size: 11px;
+        font-size: 10px;
     }
 }

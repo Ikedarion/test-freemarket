@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\support\facades\Auth;
+use Illuminate\support\facades\DB;
 use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\CommentRequest;
-use App\Http\Requests\AddressRequest;
 use App\Models\ShippingAddress;
 use App\Models\Category;
 use App\Models\Product;
@@ -19,14 +19,21 @@ class ProductController extends Controller
     {
         $userId = Auth::id();
         $page = $request->query('page', null);
+        $keyword = $request->input('keyword');
 
-        if ($page === null) {
-            $products = Product::all();
-        } elseif ($page === 'my-list') {
-            $products = Product::whereHas('likedByUsers', function ($query) use ($userId) {
+        $productQuery = Product::query();
+
+        if ($page === 'my-list') {
+            $productQuery->whereHas('likedByUsers', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })->get();
         }
+
+        if ($keyword) {
+            $productQuery = $productQuery->keywordSearch($keyword);
+        }
+
+        $products = $productQuery->get();
 
         return view('index', compact('products'));
     }
@@ -46,6 +53,8 @@ class ProductController extends Controller
 
     public function store(ExhibitionRequest $request)
     {
+        DB::beginTransaction();
+
         try {
             $productData = $request->only('color', 'condition', 'name', 'brand_name', 'price', 'description');
             $productData['user_id'] = Auth::id();
@@ -56,13 +65,16 @@ class ProductController extends Controller
                 $productData['image'] = $imagePath;
             }
             $product = Product::create($productData);
-
             $product->categories()->attach($request->input('category_id'));
+
+            DB::commit();
+
+            return redirect()->route('my-page')->with(['success' => '商品の出品が完了しました。']);
         } catch (\Exception $e) {
+            DB::rollBack();
+
             return redirect()->back()->with(['error' => '商品の登録に失敗しました。']);
         }
-
-        return redirect()->route('my-page')->with(['success' => '商品の出品が完了しました。']);
     }
 
     public function showDetail($id)
@@ -85,24 +97,6 @@ class ProductController extends Controller
         $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
 
         return view('purchase',compact('product','shipping_address'));
-    }
-
-    public function edit($id)
-    {
-        $product_id = Product::find($id)->id;
-        $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
-
-        return view('address', compact('shipping_address', 'product_id'));
-    }
-
-    public function update(AddressRequest $request, $id)
-    {
-        $addressData = $request->only('postal_code', 'address', 'building_name');
-        $shipping_address = ShippingAddress::find($id);
-
-        $shipping_address->update($addressData);
-
-        return redirect()->route('purchase', ['id' => $request->input('product_id')])->with('success', '住所の変更が完了しました。');
     }
 
     public function storeComment(CommentRequest $request)
@@ -133,6 +127,4 @@ class ProductController extends Controller
             return redirect()->back();
         }
     }
-
-
 }

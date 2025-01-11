@@ -3,7 +3,7 @@
     height: 100%;
     box-sizing: border-box;
     padding: 3% 0 15px;
-    color: #333333;
+    color: #464646;
 }
 
 .user__group {
@@ -18,8 +18,11 @@
     display: flex;
     align-items: center;
     gap: 9%;
-    font-size: max(18px, min(calc(1.8vw), 22px));
     font-weight: bold;
+}
+
+.user-name {
+    font-size: 20px;
 }
 
 .profile__link {
@@ -30,6 +33,7 @@
     border-radius: 3px;
     padding: 1.5% 0;
     font-size: max(10px, min(calc(1vw), 16px));
+    font-weight: bold;
 }
 
 .user-image {
@@ -58,22 +62,38 @@
 .my-page-list {
     width: 100%;
     display: flex;
-    border-bottom: 1px solid #808080;
+    align-items: center;
+    border-bottom: 1px solid #9f9f9f;
     padding: 0 10%;
     gap: 6%;
     font-weight: bold;
-    font-size: max(12px, min(calc(1.2vw), 18px));
+    font-size: max(11px, min(calc(1.2vw), 15px));
     box-sizing: border-box;
+    position: relative;
 }
 
-.my-page-list a {
+.list-item {
     text-decoration: none;
-    color: #666666;
-    padding-bottom: 5px;
+    color: #707070;
+    margin-bottom: 5px;
 }
 
 .my-page-list a.active {
-    color: #ff1818;
+    color: #ff2f2f;
+}
+
+.reset-btn {
+    font-size: max(8px, min(calc(0.8vw), 11px));
+    color: #6b6b6b;
+    border: 0.5px solid #6b6b6b;
+    background-color: #f8f8f8;
+    font-weight: lighter;
+    padding: 5px 8px;
+    border-radius: 3px;
+    text-decoration: none;
+    position: absolute;
+    margin-bottom: 5px;
+    right: 10%;
 }
 
 .product-list {
@@ -82,6 +102,13 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 5%;
     box-sizing: border-box;
+}
+
+.empty-message {
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+    color: #666666;
 }
 
 .product-card {
@@ -115,6 +142,14 @@
         width: 120px;
         height: 120px;
     }
+
+    .user-name {
+        font-size: 18px;
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
 }
 
 @media(max-width: 850px) {
@@ -124,8 +159,12 @@
     }
 
     .user-image {
-        width: 105px;
-        height: 105px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .product-name {
+        font-size: 12px;
     }
 }
 
@@ -135,16 +174,24 @@
         margin: 4.5% auto;
     }
 
-    .user__items {
-        font-size: 16px;
-    }
-
     .user-image {
         width: 90px;
         height: 90px;
     }
 
+    .user-name {
+        font-size: 16px;
+    }
+
     .product__group {
         margin-top: 6%;
+    }
+
+    .product-name {
+        font-size: 10px;
+    }
+
+    .reset-btn {
+        padding: 4px 8px;
     }
 }

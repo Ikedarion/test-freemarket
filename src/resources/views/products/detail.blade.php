@@ -74,7 +74,7 @@
                 @foreach($product->comments as $comment)
                 <div class="comment__group">
                     <div class="comment-items">
-                        <span class="comment-user-item">
+                        <span class="comment__user-item">
                             @if($comment->user->profile_image)
                             <div class="comment__user-image">
                                 <img src="{{ Storage::url($comment->user->profile_image) }}" alt="">
@@ -82,11 +82,11 @@
                             @else
                             <div class="comment__default-image"></div>
                             @endif
-                            <span>{{ $comment->user->name ?? '匿名' }}</span>
+                            <span class="comment__user-name">{{ $comment->user->name ?? '匿名' }}</span>
                         </span>
                         <span class="comment-timestamp">{{ $comment->created_at->format('Y-m-d H:i') }}</span>
                     </div>
-                    <div class="comment-text">{{ $comment->content }}</div>
+                    <div class="comment__text">{{ $comment->content }}</div>
                 </div>
                 @endforeach
                 @else
