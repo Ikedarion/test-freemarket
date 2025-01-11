@@ -50,14 +50,18 @@ body {
     max-height: 33px;
 }
 
-.header-search__input {
+.search-form {
     width: 65%;
     max-width: 450px;
+}
+
+.header-search__input {
+    width: 100%;
     height: 28px;
     border: none;
     border-radius: 3px;
     padding-left: 15px;
-    font-size: max(10px, min(calc(1.3vw), 15px));
+    font-size: max(9px, min(calc(1.2vw), 13px));
 }
 
 nav {

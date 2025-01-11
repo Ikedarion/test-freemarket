@@ -15,7 +15,10 @@
         <div class="header-item">
             <a class="home__link" href="/"></a>
             <img src="{{ asset('logo_image/logo.svg') }}" alt="header-image" class="header-logo">
-            <input class="header-search__input" type="text" placeholder="何をお探しですか？">
+            <form action="{{ request()->is('mypage*') ? route('my-page', ['page' => request('page')]) : route('home') }}" method="get" class="search-form">
+                <input name="keyword" class="header-search__input" type="text" placeholder="何をお探しですか？">
+                <input type="hidden" name="page" value="{{ request('page') }}">
+            </form>
         </div>
         <nav>
             <ul>
