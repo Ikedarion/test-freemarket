@@ -48,7 +48,7 @@
         <div class="product-card">
             <a href="{{ route('product.show', $purchase->product->id) }}">
                 <div class="product-image">
-                    <img src="{{ storage::url($purchase->product->image) }}" alt="product-image">
+                    <img src="{{ Storage::url($purchase->product->image) }}" alt="product-image">
                 </div>
             </a>
             <a href="{{ route('product.show', $purchase->product->id) }}">

@@ -21,7 +21,7 @@ class ProductController extends Controller
         $page = $request->query('page', null);
         $keyword = $request->input('keyword');
 
-        $productQuery = Product::query();
+        $productQuery = Product::query()->where('user_id', '!=', $userId);
 
         if ($page === 'my-list') {
             $productQuery->whereHas('likedByUsers', function ($query) use ($userId) {

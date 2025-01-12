@@ -5,7 +5,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14%;
-    padding: 5% 17% 2%;
+    padding: 5% 19% 2%;
     color: #464646;
 }
 
@@ -40,23 +40,24 @@
 .product-brand-name,
 .payment__link,
 .product__heading,
-.product-label {
-    margin-bottom: 6.5%;
+.product-label,
+.product-price,
+.product-price {
+    margin-bottom: 7%;
 }
 
-.product-text,
-.product-price {
-    margin-bottom: 6%;
+.product-text {
+    margin-bottom: 6.5%;
 }
 
 .product-name {
     font-size: max(17px, min(calc(5px + 2vw), 26px));
     font-weight: bold;
-    margin-bottom: 3px;
+    margin-bottom: 2%;
 }
 
 .product-brand-name {
-    font-size: max(7px, min(calc(0.8vw), 14px));
+    font-size: max(7px, min(calc(1vw), 13px));
 }
 
 .product-price {
@@ -85,6 +86,7 @@
 .fas {
     font-size: max(14px, min(calc(2vw), 23px));
     color: #5c5d5e;
+    margin-bottom: 2px;
 }
 
 .fas.fa-star.yellow {
@@ -133,6 +135,7 @@
     line-height: 2.5;
     border-radius: 3px;
     font-weight: bold;
+    margin-top: 5%;
 }
 
 .product__heading,
@@ -146,26 +149,26 @@
 }
 
 .product-text {
-    font-size: max(10px, min(calc(1.2vw), 15px));
+    font-size: max(10px, min(calc(1.2vw), 14px));
     flex-wrap: wrap;
 }
 
-.product-label {
-    font-size: max(10px, min(calc(1.2vw), 16px));
+.product__label {
+    font-size: max(10px, min(calc(1.2vw), 14px));
     font-weight: bold;
     display: inline;
     margin-right: 7%;
 }
 
-.product-label span {
+.product__label span {
     font-weight: lighter;
 }
 
 .category-name {
-    font-size: max(9px, min(calc(0.8vw), 14px));
+    font-size: max(9px, min(calc(1vw), 13px));
     background-color: #eaeaea;
     border-radius: 15px;
-    padding: 0 4%;
+    padding: 0.5% 4%;
     margin: 5px 2px;
     display: inline-block;
 }
@@ -302,10 +305,10 @@
     margin-bottom: 5px;
 }
 
-@media(max-width: 1100px) {
+@media(max-width: 1120px) {
     .detail__content {
-        padding: 5% 9%;
-        gap: 10%;
+        padding: 5% 12% 2%;
+        gap: 13%;
     }
 
     .comment__user-item {
@@ -316,6 +319,11 @@
 }
 
 @media(max-width: 850px) {
+    .detail__content {
+        padding: 5% 9% 2%;
+        gap: 10%;
+    }
+
     .comment__default-image,
     .comment__user-image {
         width: 16px;

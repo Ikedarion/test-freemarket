@@ -44,14 +44,14 @@
             <div class="product-text">{{ $product->description }}</div>
             <div class="product__heading">商品の情報</div>
             <div class="product-text">
-                <div class="product-label">カテゴリー</div>
+                <div class="product__label">カテゴリー</div>
                 @foreach ($product->categories as $category)
                 <span class="category-name">{{ $category->name }}
                 </span>
                 @endforeach
             </div>
             <div class="product-text">
-                <div class="product-label">商品の状態</div>
+                <div class="product__label">商品の状態</div>
                 <span>{{ $product->condition }}</span>
             </div>
         </div>

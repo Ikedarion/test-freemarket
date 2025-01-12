@@ -49,7 +49,7 @@
             <select name="color" id="color" class="color">
                 <option value="" hidden>選択する</option>
                 @foreach($colors as $color)
-                <option value="{{ $color }}" {{ old('color', $color) ? 'selected' : '' }}>{{ $color }}</option>
+                <option value="{{ $color }}" {{ old('color') == $color ? 'selected' : '' }}>{{ $color }}</option>
                 @endforeach
             </select>
         </div>
@@ -65,7 +65,7 @@
             <select name="condition" id="condition" class="condition">
                 <option value="" hidden>選択する</option>
                 @foreach($conditions as $condition)
-                <option value="{{ $condition }}" {{ old('condition', $condition) ? 'selected' : '' }}>{{ $condition }}</option>
+                <option value="{{ $condition }}" {{ old('condition') == $condition ? 'selected' : '' }}>{{ $condition }}</option>
                 @endforeach
             </select>
         </div>

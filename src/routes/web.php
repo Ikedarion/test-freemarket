@@ -19,7 +19,7 @@ use App\Http\Controllers\RegisterUserController;
 */
 
 Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('/item/{id}', [ProductController::class, 'showDetail'])->name('product.show');
+Route::get('/product/{id}', [ProductController::class, 'showDetail'])->name('product.show');
 Route::post('/products/comment', [ProductController::class, 'storeComment'])->name('comment.store');
 Route::get('/sell', [ProductController::class, 'create'])->name('product.create');
 Route::post('/products/sell', [ProductController::class, 'store'])->name('product.store');
@@ -33,7 +33,9 @@ Route::patch('/mypage/profile/update/{id}', [UserController::class, 'update'])->
 Route::get('/purchase/address/{id}', [UserController::class, 'edit'])->name('address');
 Route::patch('/purchase/address/update/{id}', [UserController::class, 'updateAddress'])->name('address.update');
 
-
+Route::post('/create-checkout-session', [PaymentController::class, 'createCheckoutSession'])->name('payment.createCheckoutSession');
+Route::get('payment/success/{id}', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('payment/cancel/{id}', [PaymentController::class, 'cancel'])->name('payment.cancel');
 
 Route::post('/register', [RegisterUserController::class, 'store']);
 Route::post('/login', [RegisterUserController::class, 'login'])->name('login');
