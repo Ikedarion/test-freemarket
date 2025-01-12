@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class PurchaseRequest extends FormRequest
 {
@@ -35,5 +37,14 @@ class PurchaseRequest extends FormRequest
             'payment_method.required' => '支払い方法を選択してください。',
             'shipping_address.required' => '配送先を選択してください。'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = response()->json([
+            'status' => 'error',
+            'errors' => $validator->errors(),
+        ],422);
+        throw new HttpResponseException($response);
     }
 }
