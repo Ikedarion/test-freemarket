@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->decimal('price', 8, 2);
-            $table->enum('payment_status', ['未払い', '支払い待ち', '支払い済み','返金']);
+            $table->enum('payment_status', ['pending', 'succeeded', 'failed', 'canceled', 'refunded']);
             $table->string('payment_method')->nullable();
             $table->string('stripe_payment_id')->unique();
             $table->foreignId('shipping_address_id')->nullable()->constrained('shipping_addresses')->onDelete('set null');
