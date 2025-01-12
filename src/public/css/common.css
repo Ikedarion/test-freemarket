@@ -111,9 +111,9 @@ nav ul {
 
 .success-message,
 .error-message {
-    height: 30px;
+    height: 28px;
     text-align: center;
-    padding: 8px 0 0;
+    padding: 13px 0 0;
     font-size: 15px;
     animation: slideIn 0.9s forwards;
 }
@@ -194,13 +194,5 @@ nav ul {
 
     nav {
         width: 42%;
-    }
-}
-
-@media(min-width: 768px) and (max-width: 850px) {
-    .nav-list,
-    .nav-list-logout,
-    .nav-list-btn {
-        color: rgb(255, 127, 127);
     }
 }
