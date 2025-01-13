@@ -6,6 +6,10 @@
     color: #464646;
 }
 
+h2 {
+    margin-bottom: 47px;
+}
+
 .form {
     margin: 40px auto 0;
     width: 55%;
@@ -30,7 +34,7 @@
 .form__label {
     font-weight: bold;
     display: block;
-    margin: 25px 0 2px;
+    margin: 27px 0 2px;
     font-size: 14px;
 }
 

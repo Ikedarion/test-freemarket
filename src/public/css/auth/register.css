@@ -6,6 +6,10 @@
     color: #464646;
 }
 
+h2 {
+    margin-bottom: 45px;
+}
+
 .form {
     margin: 40px auto 0;
     width: 55%;
