@@ -34,12 +34,12 @@
     border: 0.5px solid #6b6b6b;
     background-color: #f8f8f8;
     font-weight: lighter;
-    padding: 3px 7px;
+    padding: 5px 8px;
     border-radius: 3px;
     text-decoration: none;
     position: absolute;
     right: 10%;
-    bottom: 1px;
+    bottom: 0;
 }
 
 .product-list {

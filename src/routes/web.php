@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RegisterUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +36,5 @@ Route::post('/create-checkout-session', [PaymentController::class, 'createChecko
 Route::get('payment/success/{id}', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('payment/cancel/{id}', [PaymentController::class, 'cancel'])->name('payment.cancel');
 
-Route::post('/register', [RegisterUserController::class, 'store']);
-Route::post('/login', [RegisterUserController::class, 'login'])->name('login');
+
+require __DIR__ . '/auth.php';
