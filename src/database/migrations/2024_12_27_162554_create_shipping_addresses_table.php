@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('postal_code','20');
             $table->string('address');
-            $table->string('building_name')->nullable();
+            $table->string('building_name');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
