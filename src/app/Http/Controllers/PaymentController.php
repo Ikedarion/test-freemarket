@@ -2,14 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Purchase;
 use App\Models\Product;
-use Illuminate\Support\Facades\Log;
+use App\Models\ShippingAddress;
 use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
+    public function showPurchaseForm($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return redirect('/')->with('error', '商品が見つかりません。');
+        }
+
+        $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
+
+        return view('purchase', compact('product', 'shipping_address'));
+    }
+
     public function createCheckoutSession(PurchaseRequest $request)
     {
         try {

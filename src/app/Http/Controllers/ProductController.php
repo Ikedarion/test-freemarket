@@ -7,7 +7,6 @@ use Illuminate\support\facades\Auth;
 use Illuminate\support\facades\DB;
 use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\CommentRequest;
-use App\Models\ShippingAddress;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Comment;
@@ -82,27 +81,15 @@ class ProductController extends Controller
         $product = Product::with(['categories','comments','likedByUsers'])->find($id);
 
         $isLiked = $product->likedByUsers->contains(auth()->id());
+        $isOwner = $product->user_id === auth()->id();
 
-        return view('products.detail', compact('product','isLiked'));
-    }
-
-    public function showPurchaseForm($id)
-    {
-        $product = Product::find($id);
-
-        if (!$product) {
-            return redirect('/')->with('error', '商品が見つかりません。');
-        }
-
-        $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
-
-        return view('purchase',compact('product','shipping_address'));
+        return view('products.detail', compact('product','isLiked', 'isOwner'));
     }
 
     public function storeComment(CommentRequest $request)
     {
         Comment::create([
-            'content' => $request->input('comment'),
+            'content' => $request->input('content'),
             'user_id' => Auth::id(),
             'product_id' => $request->input('product_id'),
         ]);

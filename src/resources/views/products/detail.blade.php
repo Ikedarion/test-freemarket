@@ -55,7 +55,6 @@
                 <span>{{ $product->condition }}</span>
             </div>
         </div>
-
         <form action="{{ route('comment.store') }}" method="post" class="comment-form">
             @csrf
             <div class="comment__heading">コメント({{ $product->comments->count() }})</div>
@@ -86,7 +85,14 @@
                         </span>
                         <span class="comment-timestamp">{{ $comment->created_at->format('Y-m-d H:i') }}</span>
                     </div>
-                    <div class="comment__text">{{ $comment->content }}</div>
+                    <div class="comment__text">
+                        <div>{{ $comment->content }}</div>
+                        <div>{{ $comment->reply }}</div>
+                        @if($isOwner && $comment->reply === null)
+                        <p><a class="modal__link" href="#modal{{ $comment->user_id }}">返信する</a></p>
+                        @endif
+                        <x-reply-modal :comment="$comment"/>
+                    </div>
                 </div>
                 @endforeach
                 @else
@@ -96,7 +102,7 @@
             <div>
                 <div for="comment" class="comment__label">商品へのコメント</div>
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <textarea name="comment" class="comment__textarea">{{ old('comment') }}</textarea>
+                <textarea name="content" class="comment__textarea">{{ old('comment') }}</textarea>
                 @error('comment')
                 <div class="error">
                     {{ $message }}

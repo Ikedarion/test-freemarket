@@ -19,10 +19,9 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/product/{id}', [ProductController::class, 'showDetail'])->name('product.show');
-Route::post('/products/comment', [ProductController::class, 'storeComment'])->name('comment.store');
+Route::post('/product/comment', [ProductController::class, 'storeComment'])->name('comment.store');
 Route::get('/sell', [ProductController::class, 'create'])->name('product.create');
-Route::post('/products/sell', [ProductController::class, 'store'])->name('product.store');
-Route::get('/purchase/{id}', [ProductController::class, 'showPurchaseForm'])->name('purchase');
+Route::post('/product/sell', [ProductController::class, 'store'])->name('product.store');
 Route::post('/likes/{id}', [ProductController::class, 'like'])->name('like');
 
 Route::get('/mypage', [UserController::class, 'index'])->name('my-page');
@@ -32,6 +31,7 @@ Route::patch('/mypage/profile/update/{id}', [UserController::class, 'update'])->
 Route::get('/purchase/address/{id}', [UserController::class, 'edit'])->name('address');
 Route::patch('/purchase/address/update/{id}', [UserController::class, 'updateAddress'])->name('address.update');
 
+Route::get('/purchase/{id}', [PaymentController::class, 'showPurchaseForm'])->name('purchase');
 Route::post('/create-checkout-session', [PaymentController::class, 'createCheckoutSession'])->name('payment.createCheckoutSession');
 Route::get('payment/success/{id}', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('payment/cancel/{id}', [PaymentController::class, 'cancel'])->name('payment.cancel');

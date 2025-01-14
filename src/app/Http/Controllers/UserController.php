@@ -49,8 +49,8 @@ class UserController extends Controller
     public function create()
     {
         $userId = Auth::id();
-        $shipping_address = ShippingAddress::where('id', $userId)->first();
         $user = User::where('id',$userId)->first();
+        $shipping_address = ShippingAddress::where('user_id', $userId)->first();
 
         return view('profile', compact('user','shipping_address'));
     }

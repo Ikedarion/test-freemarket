@@ -125,6 +125,7 @@
 .product-image {
     padding-top: 100%;
     position: relative;
+    margin-bottom: 2%;
 }
 
 .product-image img {

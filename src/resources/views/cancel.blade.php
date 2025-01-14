@@ -24,7 +24,7 @@
     .heading p {
         margin-bottom: 10px;
     }
-    
+
     .home-link {
         text-decoration: none;
         padding: 6px 16px;

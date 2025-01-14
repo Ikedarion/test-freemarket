@@ -222,20 +222,28 @@
 }
 
 .comment-list {
-    background-color: #f0f0f0;
+    background-color: #f6f6f6;
     min-height: 37px;
     border-radius: 3px;
-    padding: 5% 4% 0;
+    padding: 7% 7% 3%;
     box-sizing: border-box;
 }
 
 .comment__group {
     font-size: max(7px, min(calc(1vw), 13px));
-    margin-bottom: 6%;
+    padding-bottom: 5%;
+    margin-bottom: 7%;
+    border-bottom: 1px solid #ddd;
+}
+
+.comment__group:last-child {
+    border: none;
+    margin: 0;
 }
 
 .comment__user-name {
     font-size: max(8.5px, min(calc(1.1vw), 12px));
+    margin-bottom: 1.5%;
 }
 
 .comment-items {
@@ -246,12 +254,22 @@
 
 .comment__user-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    padding-bottom: 2%;
 }
 
 .comment__text {
     margin: 0 3px;
     box-sizing: border-box;
+    font-size: max(7px, min(calc(1vw), 11px));
+}
+
+.comment__text > p {
+    text-align: right;
+}
+
+.modal__link {
+    font-size: max(7px, min(calc(0.9vw), 10px));
 }
 
 .comment__label {
@@ -268,7 +286,7 @@
     box-sizing: border-box;
     color: #494949;
     font-size: max(10px, min(calc(1.4vw), 15px));
-    border: 1px solid #a2a2a2;
+    border: 1px solid #bababa;
 }
 
 .comment__submit {
@@ -291,6 +309,8 @@
     margin: 0 10px 5px 0;
     display: inline-block;
     overflow: hidden;
+    background-color: #ddd;
+    border-radius: 50%;
 }
 
 .comment__user-image img {
@@ -305,17 +325,43 @@
     margin-bottom: 5px;
 }
 
+.modal {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.692);
+    z-index: 1000;
+    opacity: 0;
+}
+
+.modal__inner {
+    position: relative;
+    margin: 2% auto 0;
+    width: 100vw;
+    height: auto;
+    max-width: 550px;
+    background-color: #fbfbfb;
+    padding: 20px 40px 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+
+.modal__content {
+    width: 100%;
+}
+
 @media(max-width: 1120px) {
     .detail__content {
         padding: 5% 12% 2%;
         gap: 13%;
     }
-
-    .comment__user-item {
-        align-items: center;
-        padding-bottom: 3px;
-    }
-
 }
 
 @media(max-width: 850px) {
@@ -342,8 +388,8 @@
 @media(max-width: 767px) {
     .comment__default-image,
     .comment__user-image {
-        width: 15px;
-        height: 15px;
+        width: 14px;
+        height: 14px;
         margin: 0 6px 3px 0;
     }
 }
