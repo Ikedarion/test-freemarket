@@ -39,11 +39,14 @@ class RegisterUserController extends Controller
 
             if ($user->email_verified_at === null) {
                 return redirect()->route('verification.notice');
+            } else {
+                return redirect()->intended('/');
             }
-            return redirect()->intended('/');
         }
 
-        return back()->with('error', 'ログイン情報が登録されていません。');
+        return back()->withErrors([
+            'email' => 'ログイン情報が登録されていません。',
+        ]);
     }
 
     public function verify(EmailVerificationRequest $request)

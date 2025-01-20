@@ -43,7 +43,7 @@
 
             <div class="form__group">
                 <label for="password" class="form__label">パスワード</label>
-                <input name="password" type="password" id="password" value="{{ old('password') }}" class="form__input">
+                <input name="password" type="password" id="password" class="form__input">
             </div>
             @error('password')
             <div class="error">
@@ -54,6 +54,7 @@
             <div class="form__group-link">
                 <input type="submit" value="ログインする" class="form__btn">
                 <a href="/register" class="login__link">会員登録はこちら</a>
+                <a href="" class="login__link">パスワードをお忘れの方はこちら</a>
             </div>
         </form>
     </div>

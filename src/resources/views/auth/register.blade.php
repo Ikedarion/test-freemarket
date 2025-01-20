@@ -59,7 +59,7 @@
                 <label for="password" class="form__label">
                     パスワード
                 </label>
-                <input name="password" type="password" id="password" value="{{ old('password') }}" class="form__input">
+                <input name="password" type="password" id="password" class="form__input">
             </div>
             @error('password')
             <div class="error">
@@ -71,7 +71,7 @@
                 <label for="password_confirmation" class="form__label">
                     確認用パスワード
                 </label>
-                <input name="password_confirmation" type="password" id="password_confirmation" value="{{ old('password_confirmation') }}" class="form__input">
+                <input name="password_confirmation" type="password" id="password_confirmation" class="form__input">
             </div>
             @error('password_confirmation')
             <div class="error">
