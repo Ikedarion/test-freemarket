@@ -13,9 +13,16 @@ function showError(message) {
     }
 }
 
-document.getElementById('payment-method').addEventListener('change', function() {
-    document.querySelector('.payment-method').textContent = this.options[this.selectedIndex].text;
-});
+function showValidationError(message) {
+    const errorDiv = document.querySelector('.validation-message');
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    } else {
+        console.error('Error div not found:', message);
+    }
+}
+
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -42,7 +49,7 @@ form.addEventListener('submit', function(e) {
             return response.json().then(data => {
                 if (response.status === 422 && data.errors) {
                     for (let key in data.errors) {
-                        showError(data.errors[key][0]);
+                        showValidationError(data.errors[key][0]);
                         break;
                     }
                 } else if (data.message) {

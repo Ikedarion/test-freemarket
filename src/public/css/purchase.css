@@ -4,6 +4,16 @@
     box-sizing: border-box;
     padding: 6% 7% 0;
     color: #464646;
+    position: relative;
+}
+
+.stripe-error-message {
+    position: absolute;
+    top: 4%;
+    left: 10%;
+    color: #FF5555;
+    font-size: 17px;
+    border: none;
 }
 
 .purchase-form {
@@ -142,14 +152,6 @@
     font-size: max(13px, min(calc(1.4vw), 17px));
 }
 
-.stripe-error-message {
-    color: #FF5555;
-    font-size: 15px;
-    border: none;
-    text-align: center;
-    margin-top: 2%;
-}
-
 .payment-btn {
     width: 100%;
     margin: 14% 0 0;
@@ -163,14 +165,23 @@
     padding: 2.2% 10%;
 }
 
+.validation-message {
+    color: #FF5555;
+    font-size: 15px;
+    border: none;
+    text-align: center;
+    margin-top: 2%;
+}
+
 @media(max-width: 1100px) {
     .image {
         width: 150px;
         height: 150px;
     }
 
-    .stripe-error-message {
-        font-size: 13px;
+    .stripe-error-message,
+    .validation-message {
+        font-size: 14px;
     }
 }
 
@@ -200,7 +211,9 @@
         padding-top: 2px;
     }
 
-    .stripe-error-message {
-        font-size: 12px;
+    .stripe-error-message,
+    .validation-message {
+        font-size: 13px;
+        top: 3%;
     }
 }

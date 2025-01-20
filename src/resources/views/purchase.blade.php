@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="purchase__content">
+    <p class="stripe-error-message" style="display: none;"></p>
     <form id="purchase-form" class="purchase-form">
         <div class="left">
             <div class="left-group">
@@ -44,9 +45,11 @@
                     <a href="{{ route('address', $product->id) }}" class="address__link">変更する</a>
                 </div>
                 <div class="group-addresses">
-                    <div class="postal_code">〒{{ $shipping_address ? $shipping_address->postal_code : '' }}</div>
+                    <div class="postal_code">
+                        〒{{ $shipping_address ? $shipping_address->postal_code : '' }}
+                    </div>
                     <div class="address_building_name">
-                        {{ $shipping_address ?$shipping_address->address : '' }}{{ $shipping_address ?$shipping_address->building_name : '' }}
+                        {{ $shipping_address ? $shipping_address->address : '' }}{{ $shipping_address ? $shipping_address->building_name : '' }}
                     </div>
                 </div>
             </div>
@@ -71,12 +74,12 @@
             <div>
                 <div class="right-group">
                     <div class="product__heading">支払い方法</div>
-                    <div class="product__text payment-method"></div>
+                    <div class="product__text" id="payment-method-preview"></div>
                 </div>
             </div>
             <input type="hidden" name="product_id" value="{{ $product->id }}">
             <input type="hidden" name="shipping_address_id" value="{{ $shipping_address->id }}">
-            <p class="stripe-error-message" style="display: none;"></p>
+            <p class="validation-message" style="display: none;"></p>
             <input type="submit" class="payment-btn" value="購入する">
         </div>
     </form>
@@ -88,7 +91,7 @@
 <script src="{{ asset('js/stripe.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const paymentMethod = document.querySelector('.product__text.payment-method');
+        const paymentMethod = document.getElementById('payment-method-preview');
         const selectPaymentMethod = document.getElementById('payment-method');
 
         selectPaymentMethod.addEventListener('change', function(event) {

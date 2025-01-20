@@ -32,6 +32,7 @@ class PaymentController extends Controller
             $productId = $request->input('product_id');
             $shippingAddressId = $request->input('shipping_address_id');
             $paymentMethod = $request->input('payment_method');
+
             $paymentMethodTypes = ['card'];
             if ($paymentMethod === 'コンビニ') {
                 $paymentMethodTypes = ['konbini'];
@@ -47,14 +48,14 @@ class PaymentController extends Controller
                         'product_data' => [
                             'name' => "商品ID: {$productId}",
                         ],
-                        'unit_amount' => $product->price * 100,
+                        'unit_amount' => (int)$product->price,
                     ],
                     'quantity' => 1,
                 ]],
                 'mode' => 'payment',
                 'customer_email' => auth()->user()->email,
-                'success_url' => route('payment.success', ['id' => $product->id]),
-                'cancel_url' => route('payment.cancel', ['id' => $product->id]),
+                'success_url' => url('/payment/success/{CHECKOUT_SESSION_ID}'),
+                'cancel_url' => url('/payment/cancel/{CHECKOUT_SESSION_ID}'),
             ]);
 
             Purchase::create([
@@ -77,28 +78,36 @@ class PaymentController extends Controller
         }
     }
 
-    public function success($id)
+    public function success($sessionId)
     {
-        $product = Product::find($id);
-        $product->status = '売却済み';
-        $product->save();
-
-        $purchase = Purchase::where('product_id', $id)
-                ->where('user_id', auth()->id())->first();
+        $purchase = Purchase::where('stripe_payment_id', $sessionId)->first();
         if ($purchase) {
             $purchase->payment_status = 'succeeded';
             $purchase->save();
+
+            $product = Product::find($purchase->product_id);
+            if ($product) {
+                $product->status = '売却済み';
+                $product->save();
+            }
         }
-        return view('success', compact('purchase'));
+        return redirect()->route('my-page')->with('success', '決済が完了しました。');
     }
 
-    public function cancel($id)
+    public function cancel($sessionId)
     {
-        $product = Product::find($id);
+        $purchase = Purchase::where('stripe_payment_id', $sessionId)->first();
+        if ($purchase) {
+            $purchase->payment_status = 'failed';
+            $purchase->save();
 
-        $product->status = '販売中';
-        $product->save();
-
-        return view('cancel');
+            $product = Product::find($purchase->product_id);
+            if ($product) {
+                $product->status = '販売中';
+                $product->save();
+            }
+        }
+        return redirect()->route('my-page')->with('error', '決済がキャンセルされました。');
     }
+
 }
