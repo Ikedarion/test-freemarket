@@ -3,6 +3,7 @@
 namespace Tests\Feature\User;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\ShippingAddress;
@@ -18,17 +19,33 @@ class ProfileUpdateTest extends TestCase
     {
         Storage::fake('public');
 
-        $user = User::factory()->create([
-            'profile_image' => 'profile_images/user.png',
-        ]);
-
-        Storage::disk('public')->put('profile_images/user.png', 'dummy_content');
-
-        $shipping_address =ShippingAddress::factory()->create([
-            'user_id' => $user->id
-        ]);
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('profile.create'));
+        $response->assertStatus(200)
+                ->assertSee($user->name);
+
+        $image = UploadedFile::fake()->image('user_image.jpg');
+
+        $response = $this->post(route('profile.store', $user->id), [
+            'image' => $image,
+            'name' => 'テスト',
+            'postal_code' => '111-1111',
+            'address' => 'テスト県',
+            'building_name' => 'テストビル'
+        ]);
+
+        $imagePath = 'profile_images/' . $image->hashName();
+        $this->assertDatabaseHas('users', [
+            'profile_image' => $imagePath
+        ]);
+
+        $this->assertTrue(Storage::disk('public')->exists($imagePath));
+
+        $shipping_address = ShippingAddress::where('user_id', $user->id)->first();
+
+        //初期値確認
+        $response = $this->get(route('profile.create'));
         $response->assertStatus(200);
 
         $response->assertSee(Storage::url($user->profile_image))

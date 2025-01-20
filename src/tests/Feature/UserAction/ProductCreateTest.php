@@ -51,10 +51,20 @@ class ProductCreateTest extends TestCase
 
         $this->assertDatabaseHas('products', [
             'user_id' => $user->id,
+            'color' => '黒',
+            'condition' => '良好',
             'name' => 'バッグ',
+            'brand_name' => 'テストブランド',
             'description' => str_repeat('あ', 60),
             'price' => 3000
         ]);
+
+        $imagePath = 'product_images/' . $image->hashName();
+
+        $this->assertDatabaseHas('products', [
+            'image' => $imagePath
+        ]);
+        $this->assertTrue(Storage::disk('public')->exists($imagePath));
 
         $this->assertDatabaseHas('product_category', [
             'product_id' => $product->id,

@@ -22,7 +22,6 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
 
         $product = Product::factory()->create(['user_id' => $user->id]);
-
         Storage::disk('public')->put("{$product->image}", 'dummy_content');
 
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));
@@ -49,8 +48,8 @@ class CommentTest extends TestCase
         Storage::fake('public');
 
         $user = User::factory()->create();
-        $product = Product::factory()->create(['user_id' => $user->id]);
 
+        $product = Product::factory()->create(['user_id' => $user->id]);
         Storage::disk('public')->put("{$product->image}", 'dummy_content');
 
         $response = $this->get(route('product.show', $product->id));
@@ -75,7 +74,6 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
 
         $product = Product::factory()->create(['user_id' => $user->id]);
-
         Storage::disk('public')->put("{$product->image}", 'dummy_content');
 
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));
@@ -105,7 +103,6 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
 
         $product = Product::factory()->create(['user_id' => $user->id]);
-
         Storage::disk('public')->put("{$product->image}", 'dummy_content');
 
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));

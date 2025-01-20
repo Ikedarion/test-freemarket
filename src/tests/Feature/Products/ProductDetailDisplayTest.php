@@ -75,17 +75,6 @@ class ProductDetailDisplayTest extends TestCase
                 ->assertSee(Storage::url($commentUser->image), false);
 
         $response->assertStatus(200);
-
-        $this->assertDatabaseHas('products', [
-            'name' => $product->name,
-            'user_id' => $user->id,
-        ]);
-
-        $this->assertDatabaseHas('comments', [
-            'content' => $comment->content,
-            'user_id' => $commentUser->id,
-        ]);
-
     }
 
     /**

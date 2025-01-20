@@ -27,8 +27,7 @@ class ProductPurchaseTest extends TestCase
         $product = Product::factory()->create(['user_id' => $user->id]);
         $shippingAddress = ShippingAddress::factory()->create(['user_id' => $loginUser->id]);
 
-        // モックされたStripeのCheckoutセッションを作成し、セッションID ('test_session_id_123') を返します。
-        // テスト用に作成されたダミーのセッションIDで、後のテストで決済成功時のセッションIDとして使用されます。
+        // モックされたStripeのCheckoutセッションを作成し、セッションID ('test_session_id_123') を返す。テスト用に作成されたダミーのセッションIDで、後のテストで決済成功時のセッションIDとして使用されます。
         $stripeMock = Mockery::mock('alias:' . StripeSession::class);
         $stripeMock->shouldReceive('create')->once()
                 ->andReturn((object) ['id' => 'test_session_id_123']);

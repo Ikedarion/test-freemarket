@@ -19,7 +19,7 @@ class ProductFactory extends Factory
     public function definition()
     {
         $faker = Faker::create('ja_JP');
-        
+
         return [
             'name' => $faker->randomElement(['腕時計', 'HDD', '革靴', 'マイク', 'タンブラー']),
             'price' => $faker->numberBetween(1000, 10000) . '.00',

@@ -41,6 +41,7 @@ class ProfileDisplayTest extends TestCase
         $product2->categories()->attach($category2->id);
         $product3->categories()->attach($category3->id);
 
+        // 購入商品作成
         $purchase = Purchase::factory()->create([
             'user_id' => $loginUser->id,
             'product_id' => $product3->id,
@@ -49,16 +50,17 @@ class ProfileDisplayTest extends TestCase
         $response = $this->actingAs($loginUser)->get(route('my-page'));
         $response->assertStatus(200);
 
+        $response = $this->actingAs($loginUser)->get('/mypage/?tab=buy');
+        $response->assertSee($loginUser->name)
+            ->assertSee(Storage::url($loginUser->profile_image))
+            ->assertSee($purchase->product->name);
+
         $response = $this->actingAs($loginUser)->get('/mypage/?tab=sell');
         $response->assertSee($loginUser->name)
                 ->assertSee(Storage::url($loginUser->profile_image));
+
         foreach ($loginUser->products as $product) {
             $response->assertSee($product->name);
         }
-
-        $response = $this->actingAs($loginUser)->get('/mypage/?tab=buy');
-        $response->assertSee($loginUser->name)
-                ->assertSee(Storage::url($loginUser->profile_image))
-                ->assertSee($purchase->product->name);
     }
 }

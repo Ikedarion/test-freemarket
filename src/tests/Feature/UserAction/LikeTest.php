@@ -22,7 +22,6 @@ class LikeTest extends TestCase
         $user = User::factory()->create();
 
         $product = Product::factory()->create(['user_id' => $user->id]);
-
         Storage::disk('public')->put("{$product->image}", 'dummy_content');
 
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));
@@ -49,19 +48,18 @@ class LikeTest extends TestCase
         $user = User::factory()->create();
 
         $product = Product::factory()->create(['user_id' => $user->id]);
-
         Storage::disk('public')->put("{$product->image}", 'dummy_content');
 
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));
-        $response->assertStatus(200);
 
+        $response->assertStatus(200);
         $response->assertSee('gray');
 
         $this->post(route('like', $product->id));
 
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));
-        $response->assertStatus(200);
 
+        $response->assertStatus(200);
         $response->assertSee('yellow');
     }
 
@@ -76,7 +74,6 @@ class LikeTest extends TestCase
         $user = User::factory()->create();
 
         $product = Product::factory()->create(['user_id' => $user->id]);
-
         Storage::disk('public')->put("{$product->image}", 'dummy_content');
 
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));
@@ -88,9 +85,7 @@ class LikeTest extends TestCase
         $response = $this->actingAs($loginUser)->get(route('product.show', $product->id));
         $response->assertStatus(200);
 
-
         $this->post(route('like', $product->id));
-
         $product->load('likedByUsers');
 
         $this->assertFalse($product->likedByUsers->contains($loginUser));

@@ -35,7 +35,6 @@ class ProductListDisplayTest extends TestCase
 
         $response = $this->get('/');
 
-        // Sold」ラベルが含まれているかを確認
         $response->assertSee('Sold')
                 ->assertStatus(200);
     }
@@ -45,20 +44,20 @@ class ProductListDisplayTest extends TestCase
      */
     public function test_own_products_are_not_displayed_in_list()
     {
+        $loginUser = User::factory()->create();
         $user = User::factory()->create();
-        $otherUser = User::factory()->create();
 
         $ownProduct = Product::factory()->create([
             'name' => '革靴',
-            'user_id' => $user->id
+            'user_id' => $loginUser->id
         ]);
 
         $otherProduct = Product::factory()->create([
             'name' => '時計',
-            'user_id' => $otherUser->id
+            'user_id' => $user->id
         ]);
 
-        $response = $this->actingAs($user)->get('/');
+        $response = $this->actingAs($loginUser)->get('/');
 
         $response->assertDontSee($ownProduct->name)
                 ->assertSee($otherProduct->name)
