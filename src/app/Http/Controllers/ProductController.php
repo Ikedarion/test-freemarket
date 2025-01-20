@@ -17,15 +17,15 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $userId = Auth::id();
-        $page = $request->query('page', null);
+        $page = $request->query('tab', null);
         $keyword = $request->input('keyword');
 
         $productQuery = Product::query()->where('user_id', '!=', $userId);
 
-        if ($page === 'my-list') {
+        if ($page === 'mylist') {
             $productQuery->whereHas('likedByUsers', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
-            })->get();
+            });
         }
 
         if ($keyword) {
@@ -33,7 +33,6 @@ class ProductController extends Controller
         }
 
         $products = $productQuery->get();
-
         return view('index', compact('products'));
     }
 
@@ -68,7 +67,7 @@ class ProductController extends Controller
 
             DB::commit();
 
-            return redirect()->route('my-page')->with(['success' => '商品の出品が完了しました。']);
+            return redirect()->route('my-page')->with(['success' => '商品が出品されました。']);
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -80,8 +79,9 @@ class ProductController extends Controller
     {
         $product = Product::with(['categories','comments','likedByUsers'])->find($id);
 
-        $isLiked = $product->likedByUsers->contains(auth()->id());
-        $isOwner = $product->user_id === auth()->id();
+        $authId = auth()->id();
+        $isLiked = $authId ? $product->likedByUsers->contains($authId) : false;
+        $isOwner = $product->user_id === $authId;
 
         return view('products.detail', compact('product','isLiked', 'isOwner'));
     }
@@ -103,15 +103,43 @@ class ProductController extends Controller
         $likes = like::where('user_id', $userId)
                     ->where('product_id', $id)->first();
 
-        if($likes) {
-            $likes->delete();
+        DB::beginTransaction();
+
+        try {
+            if ($likes) {
+                $likes->delete();
+            } else {
+                Like::create([
+                    'user_id' => $userId,
+                    'product_id' => $id,
+                ]);
+            }
+            DB::commit();
             return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'エラーが発生しました');
+        }
+    }
+
+    public function reply(Request $request, $id)
+    {
+        $comment = Comment::find($id);
+
+        $fieldName = 'reply' . $comment->user_id;
+        $request->validate([
+            $fieldName => 'required|max:255|string',
+        ],[
+            $fieldName . '.required' => '返信内容を入力してください。',
+            $fieldName . '.string'=> '返信は文字列で入力してください。',
+            $fieldName . '.max' => '返信は255文字以内で入力してください。'
+        ]);
+
+        if ($comment) {
+            $comment->update(['reply' => $request->input($fieldName)]);
+            return redirect()->back()->with('success', '返信を送信しました。');
         } else {
-            Like::create([
-                'user_id' => $userId,
-                'product_id' => $id,
-            ]);
-            return redirect()->back();
+            return redirect()->back()->with('error', 'コメントが見つかりません。');
         }
     }
 }

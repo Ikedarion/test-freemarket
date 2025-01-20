@@ -7,9 +7,18 @@
 
 @section('content')
 <div class="detail__content">
+    @if (in_array($product->status, ['売却済み', '取引中', '取り下げ']))
+    <div class="product-image">
+        <div class="sold-overlay">
+            <span class="sold-label">Sold</span>
+        </div>
+        <img src="{{ Storage::url($product->image) }}" alt="product-image" class="image">
+    </div>
+    @else
     <div class="product-image">
         <img src="{{ Storage::url($product->image) }}" alt="product-image">
     </div>
+    @endif
     <div class="product-detail">
         <div class="detail-content">
             <div class="product-name">{{ $product->name }}</div>
@@ -24,7 +33,7 @@
                         @if($isLiked)
                         <i class="fas fa-star yellow"></i>
                         @else
-                        <i class="far fa-star"></i>
+                        <i class="far fa-star gray"></i>
                         @endif
                     </button>
                     <p>{{ $product->likedByUsers->count() }}</p>
@@ -36,7 +45,11 @@
                     <p>{{ $product->comments->count() }}</p>
                 </div>
             </div>
+            @if (in_array($product->status, ['売却済み', '取引中', '取り下げ']))
+            <a href="#" class="payment__link">現在購入できません</a>
+            @else
             <a href="{{ route('purchase', $product->id) }}" class="payment__link">購入手続きへ</a>
+            @endif
             <div class="product__heading">商品説明</div>
             <div class="product-text">カラー：
                 <span>{{ $product->color }}</span>
@@ -55,8 +68,7 @@
                 <span>{{ $product->condition }}</span>
             </div>
         </div>
-        <form action="{{ route('comment.store') }}" method="post" class="comment-form">
-            @csrf
+        <div class="comment-form">
             <div class="comment__heading">コメント({{ $product->comments->count() }})</div>
             <div class="user-items">
                 @if($product->user->profile_image)
@@ -87,11 +99,16 @@
                     </div>
                     <div class="comment__text">
                         <div>{{ $comment->content }}</div>
-                        <div>{{ $comment->reply }}</div>
-                        @if($isOwner && $comment->reply === null)
-                        <p><a class="modal__link" href="#modal{{ $comment->user_id }}">返信する</a></p>
+                        @if($comment->reply)
+                        <div class="comment__reply">
+                            <p>{{ $comment->updated_at }}</p>
+                            <span>➥ {{ $comment->reply }}</span>
+                        </div>
                         @endif
-                        <x-reply-modal :comment="$comment"/>
+                        @if($isOwner && $comment->reply === null)
+                        <p><a class="modal__link" href="#" data-modal-id="modal-{{ $comment->user_id }}">返信する</a></p>
+                        @endif
+                        <x-reply-modal :comment="$comment" />
                     </div>
                 </div>
                 @endforeach
@@ -99,20 +116,58 @@
                 <div class="comment__group">コメントはまだありません。</div>
                 @endif
             </div>
-            <div>
-                <div for="comment" class="comment__label">商品へのコメント</div>
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <textarea name="content" class="comment__textarea">{{ old('comment') }}</textarea>
-                @error('comment')
-                <div class="error">
-                    {{ $message }}
+            <form action="{{ route('comment.store') }}" method="post" class="comment-form">
+                @csrf
+                <div>
+                    <div for="comment" class="comment__label">商品へのコメント</div>
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <textarea name="content" class="comment__textarea">{{ old('content') }}</textarea>
+                    @error('content')
+                    <div class="error">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
-                @enderror
-            </div>
-            <div>
-                <input type="submit" class="comment__submit" value="コメントを送信する">
-            </div>
-        </form>
+                <div>
+                    <input type="submit" class="comment__submit" value="コメントを送信する">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const openButtons = document.querySelectorAll('.modal__link');
+        const modals = document.querySelectorAll('.modal');
+
+        openButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetModalId = button.getAttribute('data-modal-id');
+                const targetModal = document.getElementById(targetModalId);
+
+                if (targetModal) {
+                    targetModal.classList.add('open');
+                }
+            });
+        });
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('open')
+                }
+            });
+
+            const form = modal.querySelector('.reply-form');
+            if (form) {
+                form.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+    });
+</script>
+@endpush

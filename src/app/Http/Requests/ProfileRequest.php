@@ -24,6 +24,7 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
             'image' => 'mimes:jpeg,png',
         ];
     }
@@ -31,6 +32,7 @@ class ProfileRequest extends FormRequest
     public function messages()
     {
         return [
+            'name.required' => 'ユーザー名を入力してください。',
             'image.mimes' => '画像はjpeg形式またはpng形式を選択してください。',
         ];
     }

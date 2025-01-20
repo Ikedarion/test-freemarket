@@ -13,7 +13,6 @@ use App\Models\Purchase;
 use App\Models\Product;
 use App\Models\User;
 
-use function PHPUnit\Framework\isEmpty;
 
 class UserController extends Controller
 {
@@ -21,14 +20,18 @@ class UserController extends Controller
     {
         $user = User::find(auth()->id());
         $keyword = $request->input('keyword');
-        $page = $request->query('page', 'sell');
+        $page = $request->query('tab', 'sell');
 
         $products = collect();
         $purchases = collect();
 
         if ($page === 'buy') {
             $purchasesQuery = Purchase::with('product')
-            ->where('user_id', auth()->id());
+            ->where('user_id', auth()->id())
+            ->where(function ($query) {
+                $query->where('payment_status', 'pending')
+                ->orWhere('payment_status', 'succeeded');
+            });
 
             if ($keyword) {
                 $purchasesQuery->keywordSearch($keyword);
@@ -59,7 +62,7 @@ class UserController extends Controller
                             AddressRequest $addressRequest, $id) {
         $user = User::findOrFail($id);
 
-        $user->name = $addressRequest->input('name');
+        $user->name = $profileRequest->input('name');
 
         if ($profileRequest->hasFile('image')) {
             $imagePath = $profileRequest->file('image')->store('profile_images', 'public');
@@ -86,7 +89,7 @@ class UserController extends Controller
         try {
             $user = User::findOrFail($id);
             $userData = [
-                'name' => $addressRequest->input('name'),
+                'name' => $profileRequest->input('name'),
             ];
 
             if ($profileRequest->hasFile('image')) {
@@ -115,8 +118,11 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $product_id = Product::find($id)->id;
+        $product_id = Product::find($id);
         $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
+        if (!$shipping_address) {
+            return redirect()->back()->with('error', '配送先情報が見つかりません。');
+        }
 
         return view('address', compact('shipping_address', 'product_id'));
     }

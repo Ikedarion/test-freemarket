@@ -21,46 +21,55 @@
     </div>
     <div class="product__group">
         <div class="my-page-list">
-            <a href="{{ route('my-page', ['keyword' => request('keyword'), 'page' => 'sell']) }}"
-                class="list-item {{ request('page') === 'sell' || request('page') === null ? 'active' : ''}}">出品した商品</a>
-            <a href="{{ route('my-page', ['keyword' => request('keyword'), 'page' => 'buy'])  }}" class="list-item {{ request('page') === 'buy' ? 'active' : ''}}">購入した商品</a>
+            <a href="{{ route('my-page', ['keyword' => request('keyword'), 'tab' => 'sell']) }}"
+                class="list-item {{ request('tab') === 'sell' || request('tab') === null ? 'active' : ''}}">出品した商品</a>
+            <a href="{{ route('my-page', ['keyword' => request('keyword'), 'tab' => 'buy'])  }}" class="list-item {{ request('tab') === 'buy' ? 'active' : ''}}">購入した商品</a>
             @if (request('keyword'))
-            <a href="{{ route('my-page', ['page' => 'sell'])}}" class="reset-btn">検索をリセットする</a>
+            <a href="{{ route('my-page', ['tab' => 'sell'])}}" class="reset-btn">検索をリセットする</a>
             @endif
         </div>
         @if(!$products->isEmpty() || !$purchases->isEmpty())
         <div class="product-list">
-            @if(request('page') === 'sell' || request('page') === null)
+            @if(request('tab') === 'sell' || request('tab') === null)
             @foreach($products as $product)
             <div class="product-card">
                 <a href="{{ route('product.show', $product->id) }}">
-                <div class="product-image">
-                    <img src="{{ Storage::url($product->image) }}" alt="product-image">
-                </div>
-            </a>
-            <a href="{{ route('product.show', $product->id) }}">
-                <div class="product-name">{{ $product->name }}</div>
-            </a>
+                    <div class="product-image">
+                        <img src="{{ Storage::url($product->image) }}" alt="product-image">
+                    </div>
+                </a>
+                <a href="{{ route('product.show', $product->id) }}">
+                    <div class="product-name">{{ $product->name }}</div>
+                </a>
+            </div>
+            @endforeach
+            @elseif(request('tab') === 'buy')
+            @foreach($purchases as $purchase)
+            <div class="product-card">
+                <a href="{{ route('product.show', $purchase->product->id) }}">
+                    @if (in_array($purchase->product->status, ['売却済み', '取引中', '取り下げ']))
+                    <div class="product-image">
+                        <div class="sold-overlay">
+                            <span class="sold-label">Sold</span>
+                        </div>
+                        <img src="{{ Storage::url($purchase->product->image) }}" alt="product-image" class="image">
+                    </div>
+                    @else
+                    <div class="product-image">
+                        <img src="{{ Storage::url($purchase->product->image) }}" alt="product-image">
+                    </div>
+                    @endif
+                </a>
+                <a href="{{ route('product.show', $purchase->product->id) }}">
+                    <div class="product-name">{{ $purchase->product->name }}</div>
+                </a>
+            </div>
+            @endforeach
+            @endif
         </div>
-        @endforeach
-        @elseif(request('page') === 'buy')
-        @foreach($purchases as $purchase)
-        <div class="product-card">
-            <a href="{{ route('product.show', $purchase->product->id) }}">
-                <div class="product-image">
-                    <img src="{{ Storage::url($purchase->product->image) }}" alt="product-image">
-                </div>
-            </a>
-            <a href="{{ route('product.show', $purchase->product->id) }}">
-                <div class="product-name">{{ $purchase->product->name }}</div>
-            </a>
-        </div>
-        @endforeach
+        @else
+        <div class="empty-message">該当する商品がありません。</div>
         @endif
     </div>
-    @else
-    <div class="empty-message">該当する商品がありません。</div>
-    @endif
-</div>
 </div>
 @endsection
