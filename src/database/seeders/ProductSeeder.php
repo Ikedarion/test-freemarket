@@ -27,7 +27,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '良好',
                 'image_path' => '/dummy_images/Armani+Mens+Clock.jpg',
-                'color' => 'ゴールド'
+                'color' => 'ゴールド',
+                'user_id' => 1
             ],
             [
                 'name' => 'HDD',
@@ -36,7 +37,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
                 'image_path' => '/dummy_images/HDD+Hard+Disk.jpg',
-                'color' => '黒'
+                'color' => '黒',
+                'user_id' => 2
             ],
             [
                 'name' => '玉ねぎ3束',
@@ -45,7 +47,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => 'やや傷や汚れあり',
                 'image_path' => '/dummy_images/iLoveIMG+d.jpg',
-                'color' => 'ベージュ'
+                'color' => 'ベージュ',
+                'user_id' => 3
             ],
             [
                 'name' => '革靴',
@@ -54,7 +57,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '状態が悪い',
                 'image_path' => '/dummy_images/Leather+Shoes+Product+Photo.jpg',
-                'color' => '黒'
+                'color' => '黒',
+                'user_id' => 4
             ],
             [
                 'name' => 'ノートPC',
@@ -63,7 +67,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '良好',
                 'image_path' => '/dummy_images/Living+Room+Laptop.jpg',
-                'color' => '黒'
+                'color' => '黒',
+                'user_id' => 5
             ],
             [
                 'name' => 'マイク',
@@ -72,7 +77,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
                 'image_path' => '/dummy_images/Music+Mic+4632231.jpg',
-                'color' => '黒'
+                'color' => '黒',
+                'user_id' => 6
             ],
             [
                 'name' => 'ショルダーバッグ',
@@ -81,7 +87,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => 'やや傷や汚れあり',
                 'image_path' => '/dummy_images/Purse+fashion+pocket.jpg',
-                'color' => '赤'
+                'color' => '赤',
+                'user_id' => 7
             ],
             [
                 'name' => 'タンブラー',
@@ -90,7 +97,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '状態が悪い',
                 'image_path' => '/dummy_images/Tumbler+souvenir.jpg',
-                'color' => '黒'
+                'color' => '黒',
+                'user_id' => 8
             ],
             [
                 'name' => 'コーヒーミル',
@@ -99,7 +107,8 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '良好',
                 'image_path' => '/dummy_images/Waitress+with+Coffee+Grinder.jpg',
-                'color' => '茶色'
+                'color' => '茶色',
+                'user_id' => 9
             ],
             [
                 'name' => 'メイクセット',
@@ -108,12 +117,12 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
                 'image_path' => '/dummy_images/外出メイクアップセット.jpg',
-                'color' => '黒'
+                'color' => '黒',
+                'user_id' => 10
             ],
         ];
 
         foreach ($products as $product) {
-            $user = User::inRandomOrder()->first();
 
             $imagePath = $product['image_path'];
             $imageName = basename($imagePath);
@@ -136,7 +145,7 @@ class ProductSeeder extends Seeder
                 'status' => $product['status'],
                 'condition' => $product['condition'],
                 'image' => $directory . '/' . $imageName,
-                'user_id' => $user->id,
+                'user_id' => $product['user_id'],
             ]);
         }
     }
