@@ -109,7 +109,7 @@ class UserController extends Controller
 
             DB::commit();
 
-            return redirect()->route('home')->with('success', 'プロフィールが更新されました');
+            return redirect()->route('my-page')->with('success', 'プロフィールが更新されました');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'プロフィールの更新に失敗しました。');

@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
-
+use App\Mail\PaymentSuccessMail;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,8 +37,8 @@ Route::middleware(['auth', 'verified'])->group( function() {
 
     Route::get('/purchase/{id}', [PaymentController::class, 'showPurchaseForm'])->name('purchase');
     Route::post('/create-checkout-session', [PaymentController::class, 'createCheckoutSession'])->name('purchase.store');
-    Route::get('payment/success/{sessionId}', [PaymentController::class, 'success'])->name('payment.success');
-    Route::get('payment/cancel/{sessionId}', [PaymentController::class, 'cancel'])->name('payment.cancel');
+    Route::get('payment/success/{purchaseId}', [PaymentController::class, 'success'])->name('payment.success');
+    Route::get('payment/cancel/{purchaseId}', [PaymentController::class, 'cancel'])->name('payment.cancel');
 });
 
 
