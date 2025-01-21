@@ -3,7 +3,7 @@
 ## 環境構築
 **Dockerビルド**
 1. ```
-   git clone git@github.com:estra-inc/confirmation-test-contact-form.git
+   git@github.com:Ikedarion/test-freemarket.git
    ```
    
 3. DockerDesktopアプリを立ち上げる
@@ -58,13 +58,7 @@
 
 7. シーディングの実行（PHPコンテナ内で実行）
   ```
-    # カテゴリー作成
-    php artisan db:seed --class=CategorySeeder
-    # ダミーデータ作成
-    php artisan db:seed --class=UserSeeder
-    php artisan db:seed --class=ProductSeeder
-    php artisan db:seed --class=CategoryProductSeeder
-    php artisan db:seed --class=ShippingAddressSeeder
+    php artisan db:seed
   ```
 
 ## 使用技術(実行環境)
