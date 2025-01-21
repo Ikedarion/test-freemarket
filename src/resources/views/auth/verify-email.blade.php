@@ -11,7 +11,7 @@
 </head>
 <style>
     .verify__content {
-        width: 100%;
+        width: 60%;
         height: 100%;
         text-align: center;
         padding: 50px 3%;
