@@ -58,9 +58,10 @@
 
 7. シーディングの実行（PHPコンテナ内で実行）
   ```
-    //カテゴリー作成
+    # カテゴリー作成
     php artisan db:seed --class=CategorySeeder
-    //ダミーデータ作成
+    # ダミーデータ作成
+    php artisan db:seed --class=UserSeeder
     php artisan db:seed --class=ProductSeeder
     php artisan db:seed --class=CategoryProductSeeder
     php artisan db:seed --class=ShippingAddressSeeder
