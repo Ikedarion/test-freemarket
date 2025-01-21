@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->decimal('price', 8, 2);
             $table->enum('payment_status', ['pending', 'succeeded', 'failed', 'canceled', 'refunded']);
-            $table->string('payment_method')->nullable();
-            $table->string('stripe_payment_id')->unique();
+            $table->string('payment_method');
+            $table->string('stripe_payment_id')->nullable()->unique();
             $table->foreignId('shipping_address_id')->nullable()->constrained('shipping_addresses')->onDelete('set null');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('set null');
