@@ -19,17 +19,20 @@
     DB_USERNAME=laravel_user
     DB_PASSWORD=laravel_pass
   
-    // mailtrap使用する場合
+    # mailtrap使用する場合
     MAIL_MAILER=smtp
     MAIL_HOST=smtp.mailtrap.io
     MAIL_PORT=2525
-    MAIL_USERNAME=your-mailtrap-username
-    MAIL_PASSWORD=your-mailtrap-password
+    MAIL_USERNAME= # ここにMailtrapのUsernameを指定
+    MAIL_PASSWORD= # ここにMailtrapのPasswordを指定
     MAIL_ENCRYPTION=null
-    MAIL_FROM_ADDRESS=no-reply@example.com
+    MAIL_FROM_ADDRESS= # 送信者のメールアドレス
     MAIL_FROM_NAME="${APP_NAME}"
-  ```
 
+    # StripeKey設定
+    STRIPE_KEY=　// Stripeのパブリックキーを指定
+    STRIPE_SECRET_KEY= // Stripeのシークレットキーを指定
+  ```
 
   ```
   docker-compose exec php bash
