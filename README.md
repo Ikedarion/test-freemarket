@@ -11,26 +11,27 @@
 2. `composer install`
 3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
 4. .envに以下の環境変数を追加
-```
-  DB_CONNECTION=mysql
-  DB_HOST=mysql
-  DB_PORT=3306
-  DB_DATABASE=laravel_db
-  DB_USERNAME=laravel_user
-  DB_PASSWORD=laravel_pass
+  ```
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravel_db
+    DB_USERNAME=laravel_user
+    DB_PASSWORD=laravel_pass
+  
+    // mailtrap使用する場合
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=your-mailtrap-username
+    MAIL_PASSWORD=your-mailtrap-password
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS=no-reply@example.com
+    MAIL_FROM_NAME="${APP_NAME}"
+  ```
 
-  // mailtrap使用する場合
-  MAIL_MAILER=smtp
-  MAIL_HOST=smtp.mailtrap.io
-  MAIL_PORT=2525
-  MAIL_USERNAME=your-mailtrap-username
-  MAIL_PASSWORD=your-mailtrap-password
-  MAIL_ENCRYPTION=null
-  MAIL_FROM_ADDRESS=no-reply@example.com
-  MAIL_FROM_NAME="${APP_NAME}"
-```
 
-- ```
+  ```
   docker-compose exec php bash
   ```
 5. アプリケーションキーの作成（コンテナ内で実行）
