@@ -33,15 +33,15 @@
       MAIL_MAILER=smtp
       MAIL_HOST=smtp.mailtrap.io
       MAIL_PORT=2525
-      MAIL_USERNAME= // ここにMailtrapのUsernameを指定
-      MAIL_PASSWORD= // ここにMailtrapのPasswordを指定
+      MAIL_USERNAME=   //ここにMailtrapのUsernameを指定
+      MAIL_PASSWORD=   //ここにMailtrapのPasswordを指定
       MAIL_ENCRYPTION=null
-      MAIL_FROM_ADDRESS= // 送信者のメールアドレス
+      MAIL_FROM_ADDRESS=   //送信者のメールアドレス
       MAIL_FROM_NAME="${APP_NAME}"
 
       # StripeKey設定
-      STRIPE_KEY=　// Stripeのパブリックキーを指定
-      STRIPE_SECRET= // Stripeのシークレットキーを指定
+      STRIPE_KEY=   //Stripeのパブリックキーを指定
+      STRIPE_SECRET=   //Stripeのシークレットキーを指定
    ```
 5. アプリケーションキーの作成（PHPコンテナ内で実行）
    ```bash
@@ -59,6 +59,7 @@
    ```bash
       php artisan storage:link
    ```
+
 
 ## PHPUnitテスト
 **テスト用データベースの準備**
@@ -79,9 +80,9 @@
          'url' => env('DATABASE_URL'),
          'host' => env('DB_HOST', '127.0.0.1'),
          'port' => env('DB_PORT', '3306'),
-         'database' => 'demo_test',  // テスト用データベース名を指定
-         'username' => 'root',       // rootユーザー
-         'password' => 'root',       // rootパスワード
+         'database' => 'demo_test',   //テスト用データベース名を指定
+         'username' => 'root',        //rootユーザー
+         'password' => 'root',        //rootパスワード
          'unix_socket' => env('DB_SOCKET', ''),
          'charset' => 'utf8mb4',
          'collation' => 'utf8mb4_unicode_ci',
@@ -102,7 +103,7 @@
    ```
       APP_NAME=Laravel
       APP_ENV=test
-    + APP_KEY=  // テスト用のキーは後で生成します
+    + APP_KEY=   //テスト用のキーは後で生成します
       APP_DEBUG=true
       APP_URL=http://localhost
 
@@ -147,13 +148,16 @@
       vendor/bin/phpunit tests/Feature/
    ```
 
+
 ## 使用技術(実行環境)
 - PHP 8.2.27
 - MySQL 8.0.26
 - Nginx 1.21.1
 - Laravel 9.52.18
 
+
 ## ER図
+
 
 ## URL
 - 開発環境：http://localhost/
