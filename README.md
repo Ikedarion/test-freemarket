@@ -55,12 +55,15 @@
    ```
       php artisan db:seed
    ```
+8. ストレージリンクの作成
+   ```
+      php artisan storage:link
+   ```
 
 ## PHPUnitテスト
 **テスト用データベースの準備**
-
 1. まず、MySQLコンテナにログインします。`root`ユーザーでアクセスします。
-  パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORDに設定されたパスワード（通常はroot）を入力します。
+   パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORDに設定されたパスワード（通常はroot）を入力します。
    ```
       $ mysql -u root -p
    ```
