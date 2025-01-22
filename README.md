@@ -71,25 +71,25 @@
    ```
 3. config/database.phpを編集し、テスト用のMySQL接続設定を追加します。
    ```
-    'mysql_test' => [
-   　　　'driver' => 'mysql',
-   　　　'url' => env('DATABASE_URL'),
-   　　　'host' => env('DB_HOST', '127.0.0.1'),
-   　　　'port' => env('DB_PORT', '3306'),
-   　　　+ 'database' => 'demo_test',  // テスト用データベース名
-        + 'username' => 'root',       // rootユーザー
-   　　　+ 'password' => 'root',       // rootパスワード
-   　　　'unix_socket' => env('DB_SOCKET', ''),
-   　　　'charset' => 'utf8mb4',
-   　　　'collation' => 'utf8mb4_unicode_ci',
-   　　　'prefix' => '',
-   　　　'prefix_indexes' => true,
-   　　　'strict' => true,
-   　　　'engine' => null,
-   　　　'options' => extension_loaded('pdo_mysql') ? array_filter([
-   　　　　　PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-   　　　]) : [],
-   　],
+    + 'mysql_test' => [
+   　　　 'driver' => 'mysql',
+   　　　 'url' => env('DATABASE_URL'),
+   　　　 'host' => env('DB_HOST', '127.0.0.1'),
+   　　　 'port' => env('DB_PORT', '3306'),
+   　　　 'database' => 'demo_test',  // テスト用データベース名を指定
+         'username' => 'root',       // rootユーザー
+   　　　 'password' => 'root',       // rootパスワード
+   　　　 'unix_socket' => env('DB_SOCKET', ''),
+   　　　 'charset' => 'utf8mb4',
+   　　　 'collation' => 'utf8mb4_unicode_ci',
+   　　　 'prefix' => '',
+   　　　 'prefix_indexes' => true,
+   　　　 'strict' => true,
+   　　　 'engine' => null,
+   　　　 'options' => extension_loaded('pdo_mysql') ? array_filter([
+   　　　　　 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+   　　　 ]) : [],
+   　  ],
    ```
 4. .phpコンテナ内で以下のコマンドを実行し、.envをコピーして.env.testingを作成します。
    ```
@@ -121,7 +121,7 @@
    ```
      $ php artisan migrate --env=testing
    ```
-7. プロジェクトの直下にあるphpunit.xmlで、以下のようにDB_CONNECTIONとDB_DATABASEを変更しています。
+7. プロジェクトの直下にあるphpunit.xmlで、以下のようにDB_CONNECTIONとDB_DATABASEを変更します。
    ```
      <php>
         <server name="APP_ENV" value="testing"/>
