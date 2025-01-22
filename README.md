@@ -122,7 +122,7 @@
    ```
      $ php artisan migrate --env=testing
    ```
-7. プロジェクトの直下にあるphpunit.xmlで、以下のようにDB_CONNECTIONとDB_DATABASEを変更します。
+7. プロジェクトの直下にあるphpunit.xmlで、以下のようにDB_CONNECTIONとDB_DATABASEを変更しています。
    ```
       <php>
          <server name="APP_ENV" value="testing"/>
