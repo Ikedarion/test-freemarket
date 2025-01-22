@@ -6,12 +6,13 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use Faker\Factory as Faker;
 use App\Models\Product;
-use App\Models\User;
 
 class ProductSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * ダミーデータとして商品情報をデータベースに投入するSeederクラスです。
+     * 商品画像は、Dockerコンテナ内の`/src/public/dummy_images`ディレクトリに保存されているもので、`Storage`の`public`ディスクにコピーして保存します。
+     *
      *
      * @return void
      */
