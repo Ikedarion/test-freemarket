@@ -2,26 +2,26 @@
 
 ## 環境構築
 **Dockerビルド**
-1. ```
+1. ```bash
       git@github.com:Ikedarion/test-freemarket.git
    ```
 2.  DockerDesktopアプリを立ち上げる
 
-3. ```
+3. ```bash
       docker-compose up -d --build
    ```
 
 **Laravel環境構築**
-1. ```
+1. ```bash
       docker-compose exec php bash
    ```
-2. ```
+2. ```bash
       composer install
    ```
 3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。
    または、新しく.envファイルを作成
 4. .envに以下の環境変数を追加
-   ```
+   ```dotenv
       DB_CONNECTION=mysql
       DB_HOST=mysql
       DB_PORT=3306
@@ -44,19 +44,19 @@
       STRIPE_SECRET= // Stripeのシークレットキーを指定
    ```
 5. アプリケーションキーの作成（PHPコンテナ内で実行）
-   ```
+   ```bash
       php artisan key:generate
    ```
 6. マイグレーションの実行（PHPコンテナ内で実行）
-   ```
+   ```bash
       php artisan migrate
    ```
 7. シーディングの実行（PHPコンテナ内で実行）
-   ```
+   ```bash
       php artisan db:seed
    ```
 8. ストレージリンクの作成
-   ```
+   ```bash
       php artisan storage:link
    ```
 
@@ -64,16 +64,16 @@
 **テスト用データベースの準備**
 1. まず、MySQLコンテナにログインします。`root`ユーザーでアクセスします。
    パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORDに設定されたパスワード（通常はroot）を入力します。
-   ```
-      $ mysql -u root -p
+   ```bash
+      mysql -u root -p
    ```
 2. テスト用データベースを作成します。
-   ```
+   ```bash
       CREATE DATABASE demo_test;
       SHOW DATABASES;
    ```
 3. config/database.phpに、テスト用のMySQL接続設定を追加しています。
-   ```
+   ```xml
     + 'mysql_test' => [
          'driver' => 'mysql',
          'url' => env('DATABASE_URL'),
@@ -95,11 +95,11 @@
       ],
    ```
 4. .phpコンテナ内で以下のコマンドを実行し、.envをコピーして.env.testingを作成します。
-   ```
-      $ cp .env .env.testing
+   ```bash
+      cp .env .env.testing
    ```
    - 次に、.env.testingにデータベース接続情報を加えます。
-   ```
+   ```dotenv
       APP_NAME=Laravel
     + APP_ENV=test
     + APP_KEY=  // テスト用のキーは後で生成します
@@ -114,19 +114,19 @@
     + DB_PASSWORD=root
    ```
 5. テスト用アプリケーションキーの生成
-   ```
-     $ php artisan key:generate --env=testing
+   ```bash
+      php artisan key:generate --env=testing
    ```
  - .envの変更を反映させるため、キャッシュをクリアします。
-   ```
-     $ php artisan config:clear
+   ```bash
+      php artisan config:clear
    ```
 6. テスト用のデータベースにマイグレーションを実行します。
-   ```
-     $ php artisan migrate --env=testing
+   ```bash
+      php artisan migrate --env=testing
    ```
 7. プロジェクトの直下にあるphpunit.xmlで、以下のようにDB_CONNECTIONとDB_DATABASEを変更しています。
-   ```
+   ```xml
       <php>
          <server name="APP_ENV" value="testing"/>
          <server name="BCRYPT_ROUNDS" value="4"/>
@@ -138,6 +138,13 @@
          <server name="SESSION_DRIVER" value="array"/>
          <server name="TELESCOPE_ENABLED" value="false"/>
     </php>
+   ```
+
+**Featureテストの実行**
+- 以下のコマンドでFeatureテストを実行できます：
+
+   ```bash
+      vendor/bin/phpunit tests/Feature/
    ```
 
 ## 使用技術(実行環境)
