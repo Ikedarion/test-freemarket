@@ -3,7 +3,7 @@
 ## 環境構築
 **Dockerビルド**
 1. ```bash
-      git@github.com:Ikedarion/test-freemarket.git
+      git clone git@github.com:Ikedarion/test-freemarket.git
    ```
 2.  DockerDesktopアプリを立ち上げる
 
@@ -21,7 +21,7 @@
 3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。
    または、新しく.envファイルを作成
 4. .envに以下の環境変数を追加
-   ```dotenv
+   ```
       DB_CONNECTION=mysql
       DB_HOST=mysql
       DB_PORT=3306
@@ -99,9 +99,9 @@
       cp .env .env.testing
    ```
    - 次に、.env.testingにデータベース接続情報を加えます。
-   ```dotenv
+   ```
       APP_NAME=Laravel
-    + APP_ENV=test
+      APP_ENV=test
     + APP_KEY=  // テスト用のキーは後で生成します
       APP_DEBUG=true
       APP_URL=http://localhost
