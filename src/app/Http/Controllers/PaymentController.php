@@ -92,22 +92,20 @@ class PaymentController extends Controller
     public function success($purchaseId)
     {
         $purchase = Purchase::where('id', $purchaseId)->first();
-        if ($purchase->payment_status !== 'succeeded') {
-            $purchase->payment_status = 'succeeded';
-            $purchase->save();
+        $purchase->payment_status = 'succeeded';
+        $purchase->save();
 
-            $completedAt = $purchase->updated_at;
+        $completedAt = $purchase->updated_at;
 
-            $product = Product::find($purchase->product_id);
-            if ($product) {
-                $product->status = '売却済み';
-                $product->save();
-            }
-
-            Mail::to($purchase->user->email)
-            ->send(new PaymentSuccessMail($purchase, $completedAt));
-            return view('success', compact('product'));
+        $product = Product::find($purchase->product_id);
+        if ($product) {
+            $product->status = '売却済み';
+            $product->save();
         }
+
+        Mail::to($purchase->user->email)
+        ->send(new PaymentSuccessMail($purchase, $completedAt));
+        return view('success', compact('product'));
     }
 
     public function cancel($purchaseId)
