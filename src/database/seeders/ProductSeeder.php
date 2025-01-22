@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '良好',
                 'image_path' => '/dummy_images/Armani+Mens+Clock.jpg',
-                'color' => 'ゴールド',
+                'color_id' => 14,
                 'user_id' => 1
             ],
             [
@@ -38,7 +38,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
                 'image_path' => '/dummy_images/HDD+Hard+Disk.jpg',
-                'color' => '黒',
+                'color_id' => 10,
                 'user_id' => 2
             ],
             [
@@ -48,7 +48,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => 'やや傷や汚れあり',
                 'image_path' => '/dummy_images/iLoveIMG+d.jpg',
-                'color' => 'ベージュ',
+                'color_id' => 13,
                 'user_id' => 3
             ],
             [
@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '状態が悪い',
                 'image_path' => '/dummy_images/Leather+Shoes+Product+Photo.jpg',
-                'color' => '黒',
+                'color_id' => 10,
                 'user_id' => 4
             ],
             [
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '良好',
                 'image_path' => '/dummy_images/Living+Room+Laptop.jpg',
-                'color' => '黒',
+                'color_id' => 10,
                 'user_id' => 5
             ],
             [
@@ -78,7 +78,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
                 'image_path' => '/dummy_images/Music+Mic+4632231.jpg',
-                'color' => '黒',
+                'color_id' => 10,
                 'user_id' => 6
             ],
             [
@@ -88,7 +88,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => 'やや傷や汚れあり',
                 'image_path' => '/dummy_images/Purse+fashion+pocket.jpg',
-                'color' => '赤',
+                'color_id' => 1,
                 'user_id' => 7
             ],
             [
@@ -98,7 +98,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '状態が悪い',
                 'image_path' => '/dummy_images/Tumbler+souvenir.jpg',
-                'color' => '黒',
+                'color_id' => 10,
                 'user_id' => 8
             ],
             [
@@ -108,7 +108,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '良好',
                 'image_path' => '/dummy_images/Waitress+with+Coffee+Grinder.jpg',
-                'color' => '茶色',
+                'color_id' => 9,
                 'user_id' => 9
             ],
             [
@@ -118,7 +118,7 @@ class ProductSeeder extends Seeder
                 'status' => '販売中',
                 'condition' => '目立った傷や汚れなし',
                 'image_path' => '/dummy_images/外出メイクアップセット.jpg',
-                'color' => '黒',
+                'color_id' => 10,
                 'user_id' => 10
             ],
         ];
@@ -141,11 +141,11 @@ class ProductSeeder extends Seeder
                 'name' => $product['name'],
                 'price' => $product['price'],
                 'brand_name' => $faker->company(),
-                'color' => $product['color'],
                 'description' => $product['description'],
                 'status' => $product['status'],
                 'condition' => $product['condition'],
                 'image' => $directory . '/' . $imageName,
+                'color_id' => $product['color_id'],
                 'user_id' => $product['user_id'],
             ]);
         }

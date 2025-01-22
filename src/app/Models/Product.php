@@ -13,12 +13,12 @@ class Product extends Model
         'name',
         'price',
         'brand_name',
-        'color',
         'description',
         'image',
         'condition',
         'status',
         'user_id',
+        'color_id',
     ];
 
     public function user() {
@@ -39,6 +39,10 @@ class Product extends Model
 
     public function purchase() {
         return $this->hasOne(Purchase::class);
+    }
+
+    public function color() {
+        return $this->belongsTo(Color::class);
     }
 
     public function scopeKeywordSearch($query, $keyword)

@@ -52,7 +52,7 @@
             @endif
             <div class="product__heading">商品説明</div>
             <div class="product-text">カラー：
-                <span>{{ $product->color }}</span>
+                <span>{{ $product->color->name }}</span>
             </div>
             <div class="product-text">{{ $product->description }}</div>
             <div class="product__heading">商品の情報</div>

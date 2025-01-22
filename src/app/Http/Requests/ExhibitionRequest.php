@@ -31,7 +31,7 @@ class ExhibitionRequest extends FormRequest
             'price' => 'required|integer|min:0',
             'category_id' => 'required|array|min:1',
             'category_id.*' => 'exists:categories,id',
-            'color' => 'required',
+            'color_id' => 'required',
             'brand_name' => 'required',
         ];
     }
@@ -48,7 +48,7 @@ class ExhibitionRequest extends FormRequest
             'price.required' => '商品価格を入力してください。',
             'price.integer' => '商品価格は数値型で入力してください。',
             'price.min' => '商品価格は0円以上で入力してください。',
-            'color.required' => 'カラーを選択してください。',
+            'color_id.required' => 'カラーを選択してください。',
             'category_id.required' => 'カテゴリーを選択してください。',
             'category_id.array' => 'カテゴリーのデータ形式が正しくありません。',
             'category_id.min' => 'カテゴリーを1つ以上選択してください。',

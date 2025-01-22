@@ -46,14 +46,14 @@
         <div class="product__group">
             <label for="color" class="product__label">カラー</label>
             <i class="fas fa-caret-down"></i>
-            <select name="color" id="color" class="color">
+            <select name="color_id" id="color" class="color">
                 <option value="" hidden>選択する</option>
                 @foreach($colors as $color)
-                <option value="{{ $color }}" {{ old('color') == $color ? 'selected' : '' }}>{{ $color }}</option>
+                <option value="{{ $color->id }}" {{ old('color_id') == $color ? 'selected' : '' }}>{{ $color->name }}</option>
                 @endforeach
             </select>
         </div>
-        @error('color')
+        @error('color_id')
         <div class="error">
             {{ $message }}
         </div>

@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 8, 2);
             $table->string('brand_name');
-            $table->string('color');
             $table->text('description');
             $table->string('image');
             $table->enum('condition',['良好','目立った傷や汚れなし','やや傷や汚れあり','状態が悪い']);
             $table->enum('status', ['販売中','取引中','売却済み','取り下げ'])->default('販売中');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('color_id')->nullable()->constrained('colors')->onDelete('set null');
             $table->timestamps();
         });
     }

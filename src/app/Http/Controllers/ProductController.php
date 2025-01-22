@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Comment;
 use App\Models\Like;
+use App\Models\Color;
 
 class ProductController extends Controller
 {
@@ -42,9 +43,7 @@ class ProductController extends Controller
         $conditions = [
             '良好', '目立った傷や汚れなし', 'やや傷や汚れあり', '状態が悪い'
         ];
-        $colors = [
-            'レッド','ピンク','オレンジ','イエロー','グリーン','ブルー','ネイビー','パープル','ブラウン','ブラック','ホワイト','グレー','ベージュ','ゴールド','シルバー','クリア','マルチカラー'
-        ];
+        $colors = Color::all();
 
         return view('products.create', compact('categories','conditions','colors'));
     }
@@ -54,7 +53,7 @@ class ProductController extends Controller
         DB::beginTransaction();
 
         try {
-            $productData = $request->only('color', 'condition', 'name', 'brand_name', 'price', 'description');
+            $productData = $request->only('color_id', 'condition', 'name', 'brand_name', 'price', 'description');
             $productData['user_id'] = Auth::id();
             $productData['status'] = '販売中';
 
@@ -77,7 +76,7 @@ class ProductController extends Controller
 
     public function showDetail($id)
     {
-        $product = Product::with(['categories','comments','likedByUsers'])->find($id);
+        $product = Product::with(['categories','comments','likedByUsers','color'])->find($id);
 
         $authId = auth()->id();
         $isLiked = $authId ? $product->likedByUsers->contains($authId) : false;

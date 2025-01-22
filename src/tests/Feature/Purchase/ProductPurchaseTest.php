@@ -45,7 +45,7 @@ class ProductPurchaseTest extends TestCase
                 'id' => 'test_session_id_123',
             ]);
 
-        // 購入が「pending」状態でDBに保存されていることを確認
+        // DB確認: 購入データ
         $this->assertDatabaseHas('purchases', [
             'user_id' => $loginUser->id,
             'product_id' => $product->id,
@@ -58,13 +58,16 @@ class ProductPurchaseTest extends TestCase
             'status' => '取引中',
         ]);
 
+        $purchase = Purchase::where([
+            'user_id' => $loginUser->id,
+            'product_id' => $product->id,
+        ])->first();
+
 
         // Stripe支払いが成功したと仮定して`payment_status`が「succeeded」に変更されることを確認
-        $this->get('/payment/success/test_session_id_123');
+        $this->get("/payment/success/{$purchase->id}");
 
-        $purchase = Purchase::where('stripe_payment_id', 'test_session_id_123')->first();
         $purchase->refresh();
-
         $this->assertEquals('succeeded', $purchase->payment_status);
 
         $this->assertDatabaseHas('products', [
