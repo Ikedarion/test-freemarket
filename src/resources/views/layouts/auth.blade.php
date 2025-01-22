@@ -29,6 +29,11 @@
             {{ session('success') }}
         </div>
         @endif
+        @if(session('status'))
+        <div class="success-message">
+            {{ session('status') }}
+        </div>
+        @endif
         @yield('content')
     </div>
     @stack('scripts')
