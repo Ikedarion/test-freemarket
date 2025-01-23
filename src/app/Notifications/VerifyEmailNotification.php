@@ -41,7 +41,7 @@ class VerifyEmailNotification extends VerifyEmail
     {
         return (new MailMessage)
                     ->subject('メールアドレス認証のお願い')
-                    ->line('メールアドレスの認証を完了するために、以下のリンクをクリックしてください。')
+                    ->line('メールアドレスの認証を完了するために、ログイン完了後以下のリンクをクリックしてください。')
                     ->line('このリンクの有効期限は60分です。')
                     ->action('認証する', $this->verificationUrl($notifiable));
     }
