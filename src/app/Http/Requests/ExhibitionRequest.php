@@ -31,7 +31,7 @@ class ExhibitionRequest extends FormRequest
             'price' => 'required|integer|min:0',
             'category_id' => 'required|array|min:1',
             'category_id.*' => 'exists:categories,id',
-            'color_id' => 'required',
+            'color_id' => 'required|exists:colors,id',
             'brand_name' => 'required',
         ];
     }

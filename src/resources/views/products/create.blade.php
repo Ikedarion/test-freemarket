@@ -49,7 +49,7 @@
             <select name="color_id" id="color" class="color">
                 <option value="" hidden>選択する</option>
                 @foreach($colors as $color)
-                <option value="{{ $color->id }}" {{ old('color_id') == $color ? 'selected' : '' }}>{{ $color->name }}</option>
+                <option value="{{ $color->id }}" {{ old('color_id') == $color->id ? 'selected' : '' }}>{{ $color->name }}</option>
                 @endforeach
             </select>
         </div>
