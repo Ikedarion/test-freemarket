@@ -15,7 +15,8 @@ class PaymentController extends Controller
 {
     public function showPurchaseForm($id)
     {
-        $product = Product::find($id);
+        $product = Product::where('id', $id)
+                        ->where('status','販売中')->first();
 
         if (!$product) {
             return redirect('/')->with('error', '商品が見つかりませんでした。');
