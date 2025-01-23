@@ -9,6 +9,7 @@ use Tests\TestCase;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Color;
 
 class ProductCreateTest extends TestCase
 {
@@ -21,6 +22,7 @@ class ProductCreateTest extends TestCase
         Storage::fake('public');
 
         $user = User::factory()->create();
+        $color = Color::create(['name' => '黒']);
 
         $response = $this->actingAs($user)->get(route('product.create'));
         $response->assertStatus(200);
@@ -35,7 +37,7 @@ class ProductCreateTest extends TestCase
         $response = $this->post(route('product.store'), [
             'image' => $image,
             'category_id' => [$categories[0]->id, $categories[1]->id],
-            'color' => '黒',
+            'color_id' => $color->id,
             'condition' => '良好',
             'name' => 'バッグ',
             'brand_name' => 'テストブランド',
@@ -51,7 +53,7 @@ class ProductCreateTest extends TestCase
 
         $this->assertDatabaseHas('products', [
             'user_id' => $user->id,
-            'color' => '黒',
+            'color_id' => $color->id,
             'condition' => '良好',
             'name' => 'バッグ',
             'brand_name' => 'テストブランド',

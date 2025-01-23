@@ -57,7 +57,7 @@ class ProductDetailDisplayTest extends TestCase
         $response->assertSee($product->name)
                 ->assertSee($product->brand_name)
                 ->assertSee(number_format($product->price))
-                ->assertSee($product->color)
+                ->assertSee($product->color->name)
                 ->assertSee($product->condition)
                 ->assertSee($product->description)
                 ->assertSee($product->user->name)

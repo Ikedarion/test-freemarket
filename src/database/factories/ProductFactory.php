@@ -24,7 +24,7 @@ class ProductFactory extends Factory
             'name' => $faker->randomElement(['腕時計', 'HDD', '革靴', 'マイク', 'タンブラー']),
             'price' => $faker->numberBetween(1000, 10000) . '.00',
             'brand_name' => $faker->company(),
-            'color' => $faker->randomElement(['黒', '白', '青']),
+            'color_id' => \App\Models\Color::factory(),
             'description' => $faker->text(70),
             'status' => '販売中',
             'condition' => $faker->randomElement(['良好', '目立った傷や汚れなし', 'やや傷や汚れあり', '状態が悪い']),
