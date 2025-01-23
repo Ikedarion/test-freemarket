@@ -99,7 +99,7 @@
    ```bash
       cp .env .env.testing
    ```
-   - 次に、.env.testingにデータベース接続情報を加えます。
+ - .env.testingにデータベース接続情報を加えます。
    ```
       APP_NAME=Laravel
       APP_ENV=test
@@ -118,15 +118,15 @@
    ```bash
       php artisan key:generate --env=testing
    ```
- - .envの変更を反映させるため、キャッシュをクリアします。
+6. .envの変更を反映させるため、キャッシュをクリアします。
    ```bash
       php artisan config:clear
    ```
-6. テスト用のデータベースにマイグレーションを実行します。
+7. テスト用のデータベースにマイグレーションを実行します。
    ```bash
       php artisan migrate --env=testing
    ```
-7. プロジェクトの直下にあるphpunit.xmlで、以下のようにDB_CONNECTIONとDB_DATABASEを変更しています。
+8. プロジェクトの直下にあるphpunit.xmlで、以下のようにDB_CONNECTIONとDB_DATABASEを変更しています。
    ```xml
       <php>
          <server name="APP_ENV" value="testing"/>
