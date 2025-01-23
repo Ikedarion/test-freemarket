@@ -33,7 +33,7 @@
             {{ $message }}
         </div>
         @enderror
-        <input type="hidden" name="product_id" value="{{ $product_id }}">
+        <input type="hidden" name="productId" value="{{ $productId }}">
 
         <input type="submit" class="address-form-btn" value="更新する">
     </form>

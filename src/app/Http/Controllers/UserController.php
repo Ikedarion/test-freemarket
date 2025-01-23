@@ -118,13 +118,13 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $product_id = Product::find($id);
+        $productId = Product::where('id', $id)->pluck('id')->first();
         $shipping_address = ShippingAddress::where('user_id', auth()->id())->first();
         if (!$shipping_address) {
             return redirect()->back()->with('error', '配送先情報が見つかりません。');
         }
 
-        return view('address', compact('shipping_address', 'product_id'));
+        return view('address', compact('shipping_address', 'productId'));
     }
 
     public function updateAddress(AddressRequest $request, $id)
@@ -133,7 +133,8 @@ class UserController extends Controller
         $shipping_address = ShippingAddress::find($id);
 
         $shipping_address->update($addressData);
+        $productId = $request->input('productId');
 
-        return redirect()->route('purchase', ['id' => $request->input('product_id')])->with('success', '住所の変更が完了しました。');
+        return redirect()->route('purchase', $productId)->with('success', '住所の変更が完了しました。');
     }
 }
