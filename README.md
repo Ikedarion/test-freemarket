@@ -60,6 +60,8 @@
       php artisan storage:link
    ```
 
+**テストユーザー**
+- メールアドレス:test1@example.com パスワード:Password
 
 ## PHPUnitテスト
 **テスト用データベースの準備**
