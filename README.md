@@ -63,7 +63,7 @@
 **テストユーザー**
 - メールアドレス:test1@example.com パスワード:Password
 
-## PHPUnitテスト
+## テスト環境設定
 **テスト用データベースの準備**
 1. まず、MySQLコンテナにログインします。`root`ユーザーでアクセスします。
    パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORDに設定されたパスワード（通常はroot）を入力します。
