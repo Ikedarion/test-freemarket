@@ -23,10 +23,14 @@
         <nav>
             <ul>
                 <li>
+                    @guest
+                    <a class="nav-list" href="/login">ログイン</a>
+                    @else
                     <form class="logout-form" action="/logout" method="POST">
                         @csrf
                         <input class="nav-list-logout" type="submit" value="ログアウト">
                     </form>
+                    @endguest
                 </li>
                 <li>
                     <a class="nav-list" href="/mypage">マイページ</a>
