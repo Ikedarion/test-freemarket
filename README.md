@@ -5,9 +5,12 @@
 1. ```bash
       git clone git@github.com:Ikedarion/test-freemarket.git
    ```
-2.  DockerDesktopアプリを立ち上げる
+2. ```
+      cd test-freemarket
+   ```
+3.  DockerDesktopアプリを立ち上げる
 
-3. ```bash
+4. ```bash
       docker-compose up -d --build
    ```
 
