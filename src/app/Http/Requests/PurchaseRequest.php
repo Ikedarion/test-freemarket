@@ -44,7 +44,7 @@ class PurchaseRequest extends FormRequest
         $response = response()->json([
             'status' => 'error',
             'errors' => $validator->errors(),
-        ],422);
+        ], 422);
         throw new HttpResponseException($response);
     }
 }
